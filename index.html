@@ -148,31 +148,39 @@
             }, 3000);
         });
 
-        // LOGIKA 2: LOGIN KE PROFIL
+      // LOGIKA 2: LOGIN KE PROFIL (DIPERBAIKI)
         function handleLogin() {
-            const name = document.getElementById('userNameInput').value;
+            const nameInput = document.getElementById('userNameInput');
+            const name = nameInput.value;
+            
             if (name.trim() !== "") {
                 document.getElementById('display-name').innerText = name;
-                loginScreen.style.opacity = '0';
-                setTimeout(() => {
-                    loginScreen.style.display = 'none';
-                    profileScreen.style.display = 'flex';
-                }, 500);
+                
+                // Sembunyikan Login secara total
+                loginScreen.style.display = 'none';
+                
+                // Paksa Profil muncul di tengah
+                profileScreen.style.display = 'flex'; 
+                profileScreen.style.zIndex = '9999'; // Biar dia paling depan
+                profileScreen.classList.add('fade-in');
             } else {
                 alert("Masukkan nama kamu dulu ya!");
             }
         }
 
-        // LOGIKA 3: PROFIL KE HOME (Konten Kamu)
+        // LOGIKA 3: PROFIL KE HOME
         function masukKeHome() {
+            // Sembunyikan layar profil
             profileScreen.style.display = 'none';
+            
+            // Munculkan konten utama film kamu
             mainContent.classList.remove('hidden');
-            setTimeout(() => {
-                mainContent.style.opacity = '1';
-                tampilkanFilm();
-            }, 100);
+            mainContent.style.display = 'block'; 
+            mainContent.style.opacity = '1';
+            
+            // Jalankan fungsi tampilkan film punya kamu
+            tampilkanFilm();
         }
-
         // FUNGSI TAMPILKAN FILM (Punya Kamu)
         function tampilkanFilm(filter = "") {
             container.innerHTML = "";

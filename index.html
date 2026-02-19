@@ -3,19 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MovieKimm - Portal Nonton Gratis</title>
+    <title>KimmMovie Net - Nonton Seru</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background-color: #000; color: white; }
-        .movie-card:hover { transform: translateY(-10px); transition: 0.3s; }
-        .btn-nonton { background: linear-gradient(to right, #e50914, #b20710); }
+        body { background-color: #050505; color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .movie-card { transition: all 0.3s ease; border: 1px solid #1a1a1a; }
+        .movie-card:hover { transform: scale(1.05); border-color: #e50914; box-shadow: 0 10px 30px rgba(229, 9, 20, 0.3); }
+        .btn-nonton { background-color: #e50914; transition: 0.2s; }
+        .btn-nonton:hover { background-color: #ff0a16; }
     </style>
 </head>
-<body class="p-5">
-    <div class="max-w-6xl mx-auto">
-        <h1 class="text-4xl font-black text-red-600 mb-8 text-center tracking-tighter">Kimm<span class="text-white">Movie</span> Net</h1>
+<body class="p-6">
+    <div class="max-w-7xl mx-auto">
+        <header class="text-center mb-12">
+            <h1 class="text-5xl font-black tracking-tighter italic">
+                <span class="text-red-600">Kimm</span>Movie <span class="bg-red-600 px-2 rounded text-white italic">Net</span>
+            </h1>
+            <p class="text-gray-500 mt-2 text-sm uppercase tracking-widest font-bold">Portal Film Akimm Terbaru</p>
+        </header>
 
-        <div id="movie-list" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+        <div id="movie-list" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
             </div>
     </div>
 
@@ -61,15 +68,19 @@
 
         movies.forEach(movie => {
             const card = document.createElement('div');
-            card.className = "movie-card bg-zinc-900 rounded-xl overflow-hidden shadow-xl border border-zinc-800";
-            
+            card.className = "movie-card bg-neutral-950 rounded-2xl overflow-hidden shadow-2xl flex flex-col h-full";
             card.innerHTML = `
-                <img src="${movie.img}" alt="${movie.title}" class="w-full h-72 object-cover">
-                <div class="p-4 text-center">
-                    <h2 class="font-bold text-sm h-10 overflow-hidden text-ellipsis mb-1">${movie.title}</h2>
-                    <p class="text-xs text-gray-500 mb-4">${movie.year}</p>
-                    <a href="${movie.link}" target="_blank" class="btn-nonton block w-full py-2 rounded-lg font-bold text-xs uppercase tracking-widest text-white">
-                        Nonton Sekarang
+                <div class="relative overflow-hidden group">
+                    <img src="${movie.img}" alt="${movie.title}" class="w-full h-[320px] object-cover">
+                    <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <span class="text-white font-bold border-2 border-white px-4 py-1 rounded-full text-xs">VIEW DETAIL</span>
+                    </div>
+                </div>
+                <div class="p-4 flex flex-col flex-grow text-center">
+                    <h2 class="font-bold text-sm h-10 overflow-hidden text-ellipsis line-clamp-2 mb-1">${movie.title}</h2>
+                    <p class="text-xs text-gray-500 mb-4 font-medium">${movie.year}</p>
+                    <a href="${movie.link}" target="_blank" class="btn-nonton mt-auto block w-full py-2.5 rounded-xl font-black text-[10px] uppercase tracking-[0.2em] text-white shadow-lg">
+                        NONTON SEKARANG
                     </a>
                 </div>
             `;
@@ -78,4 +89,3 @@
     </script>
 </body>
 </html>
-     

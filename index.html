@@ -85,6 +85,12 @@
                 <span class="text-red-600">Kimm</span>Movie <span class="logo-net">Net</span>
             </h1>
             <p class="text-gray-300 uppercase tracking-[0.6em] text-xs font-bold mb-12">Portal Film Akimm Terbaru</p>
+           <div class="flex flex-wrap justify-center gap-4 mb-10">
+    <button onclick="filterKategori('Semua')" class="bg-red-600 px-6 py-2 rounded-full font-bold text-xs hover:scale-110 transition">Semua</button>
+    <button onclick="filterKategori('Horor')" class="bg-white/10 px-6 py-2 rounded-full font-bold text-xs hover:bg-red-600 transition">Horor</button>
+    <button onclick="filterKategori('Komedi')" class="bg-white/10 px-6 py-2 rounded-full font-bold text-xs hover:bg-red-600 transition">Aksi</button>
+    <button onclick="filterKategori('Animasi')" class="bg-white/10 px-6 py-2 rounded-full font-bold text-xs hover:bg-red-600 transition">Animasi</button>
+</div>
             
             <div class="max-w-2xl mx-auto relative group px-6">
                 <input type="text" id="searchInput" placeholder="Cari film kesayangan kamu..." 
@@ -101,19 +107,19 @@
     <script>
         // PERBAIKAN: Struktur data movies yang benar (kurung kurawal diperbaiki)
         const movies = [
-            { title: "Kang Soleh", year: "2024", img: "https://i.postimg.cc/7Z6S9Xp3/kangmak-jpg.jpg", link: "https://123movienow.cc/spa/videoPlayPage/movies/kang-solah-from-kang-mak-x-nenek-gayung-4WIvm8vx8Y4" },
-            { title: "Dia Bukan Ibu", year: "2024", img: "https://i.postimg.cc/BZPSTFYh/gambar-jpg.jpg", link: "https://123movienow.cc/spa/videoPlayPage/movies/a-woman-called-mother-6veU3ShHCN8" },
-            { title: "Zotopia 2", year: "2025", img: "https://i.postimg.cc/D03wJyKj/image-(1).png", link: "https://123movienow.cc/spa/videoPlayPage/movies/zootopia-2-2DvGllr8x09" },
-            { title: "Grand Prix Of Europe", year: "2024", img: "https://i.postimg.cc/7hXrHxPR/image-(2).jpg", link: "https://123movienow.cc/spa/videoPlayPage/movies/grand-prix-of-europe-E0MyzLzbkT5" },
-            { title: "Mama: Pesan dari Neraka", year: "2024", img: "https://i.postimg.cc/Pr5Z42Df/image.png", link: "https://123movienow.cc/spa/videoPlayPage/movies/mama-pesan-dari-neraka-cam-yNMYEmsXCB9" },
-            { title: "Rego Nyowo", year: "2024", img: "https://i.postimg.cc/C5B0h3tK/image.png", link: "https://123movienow.cc/spa/videoPlayPage/movies/take-me-to-hell-AScBGrUm1H7" },
-            { title: "Jadi Tuh Barang", year: "2024", img: "https://i.postimg.cc/VLFwYWZv/image.png", link: "https://123movienow.cc/spa/videoPlayPage/movies/jadi-tuh-barang-indonesian-ACoUNOvohW6" },
-            { title: "Gara-Gara Warisan", year: "2022", img: "https://i.postimg.cc/63CSMBDy/image.png", link: "https://123movienow.cc/spa/videoPlayPage/movies/gara-gara-warisan-U4Kzb9JCiE1" },
-            { title: "Jumbo", year: "2024", img: "https://i.postimg.cc/X712cZrj/image.png", link: "https://123movienow.cc/spa/videoPlayPage/movies/jumbo-uNzNF09vYYa" },
-            { title: "Cocomelon", year: "Kids", img: "https://i.postimg.cc/1tR6jHdK/image.png", link: "https://123movienow.cc/spa/videoPlayPage/movies/cocomelon-YkTqmeNt1a9" },
-           { title: "Black Phone (Indonesia)", year: "Psikopat", img: "https://i.postimg.cc/C53ZHTfz/image.png", link: "https://www.bilibili.tv/id/video/4788290618137088?bstar_from=bstar-web.homepage.recommend.all" },
-           { title: "Spider-Man: Across the Spider-Verse", year: "Animasi", img: "https://i.postimg.cc/MKZpcm3b/image.png", link: "https://123movienow.cc/spa/videoPlayPage/movies/spider-man-across-the-spider-verse-WdogykOUHB2?id=2189059627747267680&type=/movie/detail&detailSe=&detailEp=&lang=id" },
-           { title: "Judul Film", year: "2024", img: "Link_Gambar", link: "Link_Nonton" },
+            { title: "Kang Soleh", year: "2024", img: "https://i.postimg.cc/7Z6S9Xp3/kangmak-jpg.jpg", link: "https://123movienow.cc/spa/videoPlayPage/movies/kang-solah-from-kang-mak-x-nenek-gayung-4WIvm8vx8Y4", genre: "Horor" },
+            { title: "Dia Bukan Ibu", year: "2024", img: "https://i.postimg.cc/BZPSTFYh/gambar-jpg.jpg", link: "https://123movienow.cc/spa/videoPlayPage/movies/a-woman-called-mother-6veU3ShHCN8", genre: "Horor" },
+            { title: "Zotopia 2", year: "2025", img: "https://i.postimg.cc/D03wJyKj/image-(1).png", link: "https://123movienow.cc/spa/videoPlayPage/movies/zootopia-2-2DvGllr8x09", genre: "Animasi" },
+            { title: "Grand Prix Of Europe", year: "2024", img: "https://i.postimg.cc/7hXrHxPR/image-(2).jpg", link: "https://123movienow.cc/spa/videoPlayPage/movies/grand-prix-of-europe-E0MyzLzbkT5", genre: "Animasi" },
+            { title: "Mama: Pesan dari Neraka", year: "2024", img: "https://i.postimg.cc/Pr5Z42Df/image.png", link: "https://123movienow.cc/spa/videoPlayPage/movies/mama-pesan-dari-neraka-cam-yNMYEmsXCB9", genre: "Horor" },
+            { title: "Rego Nyowo", year: "2024", img: "https://i.postimg.cc/C5B0h3tK/image.png", link: "https://123movienow.cc/spa/videoPlayPage/movies/take-me-to-hell-AScBGrUm1H7", genre: "Horor" },
+            { title: "Jadi Tuh Barang", year: "2024", img: "https://i.postimg.cc/VLFwYWZv/image.png", link: "https://123movienow.cc/spa/videoPlayPage/movies/jadi-tuh-barang-indonesian-ACoUNOvohW6", genre: "Komedi" },
+            { title: "Gara-Gara Warisan", year: "2022", img: "https://i.postimg.cc/63CSMBDy/image.png", link: "https://123movienow.cc/spa/videoPlayPage/movies/gara-gara-warisan-U4Kzb9JCiE1", genre: "Komedi" },
+            { title: "Jumbo", year: "2024", img: "https://i.postimg.cc/X712cZrj/image.png", link: "https://123movienow.cc/spa/videoPlayPage/movies/jumbo-uNzNF09vYYa", genre: "Animasi" },
+            { title: "Cocomelon", year: "Kids", img: "https://i.postimg.cc/1tR6jHdK/image.png", link: "https://123movienow.cc/spa/videoPlayPage/movies/cocomelon-YkTqmeNt1a9", genre: "Animasi" },
+           { title: "Black Phone (Indonesia)", year: "Psikopat", img: "https://i.postimg.cc/C53ZHTfz/image.png", link: "https://www.bilibili.tv/id/video/4788290618137088?bstar_from=bstar-web.homepage.recommend.all", genre: "Horor" },
+           { title: "Spider-Man: Across the Spider-Verse", year: "Animasi", img: "https://i.postimg.cc/MKZpcm3b/image.png", link: "https://123movienow.cc/spa/videoPlayPage/movies/spider-man-across-the-spider-verse-WdogykOUHB2?id=2189059627747267680&type=/movie/detail&detailSe=&detailEp=&lang=id", genre: "Animasi" },
+           { title: "Judul Film", year: "2024", img: "Link_Gambar", link: "Link_Nonton", genre: "Tulis Genre" }
            { title: "Judul Film", year: "2024", img: "Link_Gambar", link: "Link_Nonton" },
            { title: "Judul Film", year: "2024", img: "Link_Gambar", link: "Link_Nonton" },
            { title: "Judul Film", year: "2024", img: "Link_Gambar", link: "Link_Nonton" },

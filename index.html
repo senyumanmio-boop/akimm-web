@@ -76,82 +76,80 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .fade-in { animation: fadeIn 0.8s forwards; }
     </style>
+ <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;700;900&display=swap');
+    
+    body { background-color: #0a0a0a; color: white; font-family: 'Inter', sans-serif; overflow-x: hidden; margin: 0; }
+
+    /* Animasi Intro H */
+    #intro-screen { position: fixed; inset: 0; background: black; display: flex; align-items: center; justify-content: center; z-index: 9999; transition: opacity 1s ease; }
+    #intro-h { font-family: 'Bebas Neue', sans-serif; font-size: 150px; color: #e50914; animation: zoomIn 1.5s ease-out forwards; }
+
+    @keyframes zoomIn {
+        0% { transform: scale(0.3); opacity: 0; filter: blur(10px); }
+        100% { transform: scale(1); opacity: 1; filter: blur(0); }
+    }
+
+    /* Logo Net agar Sejajar */
+    .logo-net { 
+        background-color: #e50914; 
+        padding: 0px 8px; 
+        border-radius: 4px; 
+        font-style: normal;
+        font-size: 0.4em; 
+        vertical-align: middle;
+        margin-left: 5px;
+    }
+
+    /* Kategori Rapi di HP */
+    .category-container {
+        display: flex;
+        overflow-x: auto;
+        justify-content: center;
+        gap: 8px;
+        padding: 10px;
+        scrollbar-width: none;
+    }
+    .category-container::-webkit-scrollbar { display: none; }
+
+    /* Kartu Film */
+    .movie-card { background: #181818; transition: transform 0.3s ease; height: 100%; }
+    .movie-card:hover { transform: scale(1.05); z-index: 10; }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
 </head>
 <body>
 
-    <div id="intro-screen">
-        <div id="intro-h">H</div>
-        <p id="welcome-text" class="mt-4 text-white text-xl opacity-0 transition-opacity duration-1000">Selamat Datang di KimmMovie Net</p>
-    </div>
+    <div id="intro-screen"><div id="intro-h">H</div></div>
 
-    <div id="login-screen" class="fade-in">
-        <div class="bg-black/90 p-10 rounded-xl w-full max-w-md border border-white/10 shadow-2xl text-center">
-            <h2 class="text-4xl font-black mb-8 italic"><span class="text-red-600">Kimm</span>Movie</h2>
-            <p class="text-gray-400 mb-6">Masukkan nama kamu untuk lanjut</p>
-            <input type="text" id="userNameInput" placeholder="Nama Anda..." 
-                class="w-full bg-[#333] p-4 rounded-lg mb-6 outline-none focus:ring-2 focus:ring-red-600 text-white text-center text-lg">
-            <button onclick="handleLogin()" class="w-full bg-[#e50914] py-4 rounded-lg font-bold hover:bg-[#ff0f1b] transition uppercase tracking-widest text-lg shadow-lg shadow-red-600/20">
-                MASUK
-            </button>
-        </div>
-    </div>
-
-    <div id="profile-screen" class="flex-col fade-in">
-        <h1 class="text-4xl md:text-6xl mb-16 font-medium tracking-tight">Siapa yang menonton?</h1>
-        <div class="flex gap-12">
-            <div onclick="masukKeHome()" class="cursor-pointer text-center group">
-                <div class="relative">
-                    <img src="https://i.postimg.cc/DZ3yMyM3/lalala-removebg-preview.png" class="w-32 h-32 md:w-44 md:h-44 rounded-md object-cover mb-4 transition duration-300 group-hover:ring-4 group-hover:ring-white group-hover:scale-105">
-                </div>
-                <p id="display-name" class="text-gray-400 group-hover:text-white text-2xl mt-2 font-bold">User</p>
-            </div>
-        </div>
-    </div>
-
-    <div id="main-content" class="hidden opacity-0 transition-opacity duration-1000">
-     <div id="main-content" class="hidden opacity-0 transition-opacity duration-1000">
-    
-    <header class="py-10 md:py-20 text-center">
-        <h1 class="text-4xl md:text-8xl font-black italic mb-4 tracking-tighter">
-            <span class="text-red-600">Kimm</span>Movie <span class="logo-net">Net</span>
+<div id="main-content" class="hidden opacity-0 transition-opacity duration-1000">
+    <header class="py-10 text-center">
+        <h1 class="text-4xl md:text-7xl font-black italic mb-2">
+            <span class="text-red-600">Kimm</span>Movie<span class="logo-net">Net</span>
         </h1>
-        <p class="text-gray-400 uppercase tracking-[0.4em] text-[9px] font-bold mb-10">Portal Film Akimm Terbaru</p>
+        <p class="text-gray-500 uppercase tracking-[0.3em] text-[8px] font-bold mb-8">Portal Film Akimm Terbaru</p>
         
-        <div class="category-container mb-8 px-4">
-            <button onclick="filterKategori('Semua')" class="bg-red-600 px-5 py-2 rounded-full text-[10px] font-bold">Semua</button>
-            <button onclick="filterKategori('Horor')" class="bg-white/10 px-5 py-2 rounded-full text-[10px] font-bold hover:bg-red-600 transition">Horor</button>
-            <button onclick="filterKategori('Aksi')" class="bg-white/10 px-5 py-2 rounded-full text-[10px] font-bold hover:bg-red-600 transition">Aksi</button>
-            <button onclick="filterKategori('Animasi')" class="bg-white/10 px-5 py-2 rounded-full text-[10px] font-bold hover:bg-red-600 transition">Animasi</button>
+        <div class="category-container mb-6">
+            <button onclick="filterKategori('Semua')" class="bg-red-600 px-4 py-2 rounded-full text-[10px] font-bold">Semua</button>
+            <button onclick="filterKategori('Horor')" class="bg-white/10 px-4 py-2 rounded-full text-[10px] font-bold">Horor</button>
+            <button onclick="filterKategori('Aksi')" class="bg-white/10 px-4 py-2 rounded-full text-[10px] font-bold">Aksi</button>
+            <button onclick="filterKategori('Animasi')" class="bg-white/10 px-4 py-2 rounded-full text-[10px] font-bold">Animasi</button>
         </div>
 
-        <div class="max-w-md mx-auto px-6 relative">
+        <div class="max-w-md mx-auto px-6">
             <input type="text" id="searchInput" placeholder="Cari film kesayangan kamu..." 
-                class="w-full bg-white/10 border border-white/20 rounded-full py-4 px-6 outline-none focus:border-red-600 text-xs transition-all">
+                class="w-full bg-white/5 border border-white/10 rounded-full py-3 px-6 outline-none focus:border-red-600 text-xs text-center">
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto p-6">
-        <div id="movie-list" class="grid grid-cols-2 md:grid-cols-5 gap-6"></div>
+    <main class="max-w-7xl mx-auto p-4">
+        <div id="movie-list" class="grid grid-cols-2 md:grid-cols-5 gap-4"></div>
     </main>
-
 </div>
-        <header class="main-header text-center">
-            <h1 class="text-6xl md:text-8xl font-black italic mb-2 tracking-tighter">
-                <span class="text-red-600">Kimm</span>Movie <span class="logo-net">Net</span>
-            </h1>
-            <p class="text-gray-300 uppercase tracking-[0.6em] text-xs font-bold mb-12">Portal Film Akimm Terbaru</p>
-           <div class="flex flex-wrap justify-center gap-4 mb-10">
-    <button onclick="filterKategori('Semua')" class="bg-red-600 px-6 py-2 rounded-full font-bold text-xs hover:scale-110 transition">Semua</button>
-    <button onclick="filterKategori('Horor')" class="bg-white/10 px-6 py-2 rounded-full font-bold text-xs hover:bg-red-600 transition">Horor</button>
-    <button onclick="filterKategori('Komedi')" class="bg-white/10 px-6 py-2 rounded-full font-bold text-xs hover:bg-red-600 transition">Aksi</button>
-    <button onclick="filterKategori('Animasi')" class="bg-white/10 px-6 py-2 rounded-full font-bold text-xs hover:bg-red-600 transition">Animasi</button>
-</div>
-            
-            <div class="max-w-2xl mx-auto relative group px-6">
-                <input type="text" id="searchInput" placeholder="Cari film kesayangan kamu..." 
-                    class="w-full bg-black/40 border border-white/20 rounded-full py-5 px-10 outline-none focus:border-red-600/50 focus:bg-black/60 transition-all text-sm backdrop-blur-md">
-                <span class="absolute right-12 top-1/2 -translate-y-1/2 text-xl">🔍</span>
-            </div>
         </header>
 
         <div class="max-w-7xl mx-auto p-8">

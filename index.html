@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyMovieBox - Portal Nonton Gratis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #000; color: white; }
+        .movie-card:hover { transform: translateY(-10px); transition: 0.3s; }
+        .btn-nonton { background: linear-gradient(to right, #e50914, #b20710); }
+    </style>
+</head>
+<body class="p-5">
+    <div class="max-w-6xl mx-auto">
+        <h1 class="text-4xl font-black text-red-600 mb-8 text-center tracking-tighter">MOVIE<span class="text-white">BOX</span> PORTAL</h1>
+
+        <div id="movie-list" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+            </div>
+    </div>
+
+    <script>
+        // Daftar film manual yang gambarnya diambil dari link publik (poster umum)
+        // Kamu bisa tambah sendiri daftar ini sesuka hati
+        const movies = [
+            { title: "Deadpool & Wolverine", year: "2024", img: "https://image.tmdb.org/t/p/w500/8cdWjvZQUmOZpUzs9UbSLAIpccw.jpg" },
+            { title: "Inside Out 2", year: "2024", img: "https://image.tmdb.org/t/p/w500/vpnVM9B6NMmQpWeZvzLv1o9oIu9.jpg" },
+            { title: "Despicable Me 4", year: "2024", img: "https://image.tmdb.org/t/p/w500/wWba3Y7SqzZ6Yv4BeZSLr97rXOU.jpg" },
+            { title: "Kingdom of the Planet of the Apes", year: "2024", img: "https://image.tmdb.org/t/p/w500/gKkl37BQuKT6S6fKW9vX7t6TKy5.jpg" },
+            { title: "Godzilla x Kong", year: "2024", img: "https://image.tmdb.org/t/p/w500/z1p34vh7dEon9uC0SdbCLJdyVvL.jpg" }
+        ];
+
+        const container = document.getElementById('movie-list');
+
+        movies.forEach(movie => {
+            // Link langsung ke pencarian MovieBox
+            const linkMovieBox = `https://www.google.com/search?q=site:moviebox.pro+${encodeURIComponent(movie.title)}`;
+            
+            const card = document.createElement('div');
+            card.className = "movie-card bg-zinc-900 rounded-xl overflow-hidden shadow-xl";
+            card.innerHTML = `
+                <img src="${movie.img}" alt="${movie.title}" class="w-full h-72 object-cover">
+                <div class="p-4 text-center">
+                    <h2 class="font-bold text-sm h-10 overflow-hidden text-ellipsis">${movie.title}</h2>
+                    <p class="text-xs text-gray-500 mb-3">${movie.year}</p>
+                    <a href="${linkMovieBox}" target="_blank" class="btn-nonton block w-full py-2 rounded-lg font-bold text-xs uppercase tracking-widest">
+                        Nonton Sekarang
+                    </a>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    </script>
+</body>
+</html>

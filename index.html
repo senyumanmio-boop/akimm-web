@@ -56,6 +56,28 @@
                 link: "https://www.google.com/search?q=site:moviebox.pro+Despicable+Me+4" 
             }
         ];
+        // 2. PROSES MENAMPILKAN FILM
+        const container = document.getElementById('movie-list');
+
+        movies.forEach(movie => {
+            const card = document.createElement('div');
+            card.className = "movie-card bg-zinc-900 rounded-xl overflow-hidden shadow-xl border border-zinc-800";
+            
+            card.innerHTML = `
+                <img src="${movie.img}" alt="${movie.title}" class="w-full h-72 object-cover">
+                <div class="p-4 text-center">
+                    <h2 class="font-bold text-sm h-10 overflow-hidden text-ellipsis mb-1">${movie.title}</h2>
+                    <p class="text-xs text-gray-500 mb-4">${movie.year}</p>
+                    <a href="${movie.link}" target="_blank" class="btn-nonton block w-full py-2 rounded-lg font-bold text-xs uppercase tracking-widest text-white">
+                        Nonton Sekarang
+                    </a>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    </script>
+</body>
+</html>
         });
     </script>
 </body>

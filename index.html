@@ -162,6 +162,65 @@
         const profile = document.getElementById('profile-screen');
         const main = document.getElementById('main-content');
         const container = document.getElementById('movie-list');
+    let kategoriSekarang = "Semua";
+
+    // Fungsi Utama buat nampilin film (Cuma satu fungsi biar ga error)
+    function tampilkanFilm(keyword = "") {
+        container.innerHTML = "";
+        
+        const hasilFilter = movies.filter(m => {
+            const cocokNama = m.title.toLowerCase().includes(keyword.toLowerCase());
+            const cocokGenre = (kategoriSekarang === "Semua") || (m.genre === kategoriSekarang);
+            return cocokNama && cocokGenre;
+        });
+
+        hasilFilter.forEach((movie, index) => {
+            const card = document.createElement('div');
+            card.className = "movie-card rounded-2xl overflow-hidden flex flex-col shadow-2xl shadow-black";
+            card.style.animation = `fadeIn 0.6s ease forwards ${index * 0.1}s`; 
+            card.innerHTML = `
+                <a href="${movie.link}" target="_blank" class="relative group block overflow-hidden">
+                    <img src="${movie.img}" class="w-full h-[320px] object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <span class="text-white font-bold border-2 border-white px-5 py-2 rounded-full text-[10px] uppercase">Nonton</span>
+                    </div>
+                </a>
+                <div class="p-4 flex flex-col flex-grow text-center bg-[#181818]">
+                    <h2 class="font-bold text-sm h-10 overflow-hidden mb-1">${movie.title}</h2>
+                    <p class="text-[10px] text-red-500 font-bold mb-3">${movie.genre}</p>
+                    <a href="${movie.link}" target="_blank" class="btn-nonton mt-auto block w-full py-3 rounded-xl font-black text-[10px] text-white uppercase shadow-lg shadow-red-600/20">Nonton Sekarang</a>
+                </div>`;
+            container.appendChild(card);
+        });
+    }
+
+    // Fungsi pas tombol kategori diklik
+    function filterKategori(kat) {
+        kategoriSekarang = kat;
+        tampilkanFilm(document.getElementById('searchInput').value);
+    }
+
+    // Input search
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+        tampilkanFilm(e.target.value);
+    });
+
+    // Jalankan pertama kali
+    window.onload = () => {
+        // (Logika intro kamu tetep di sini)
+        setTimeout(() => {
+            document.getElementById('intro-screen').style.display = 'none';
+            document.getElementById('login-screen').style.display = 'flex';
+        }, 3000);
+    };
+
+    // Panggil saat masuk ke home
+    function masukKeHome() {
+        document.getElementById('profile-screen').style.display = 'none';
+        document.getElementById('main-content').classList.remove('hidden');
+        document.getElementById('main-content').style.opacity = '1';
+        tampilkanFilm(); // Munculkan semua film
+    }
 
         // Logic 1: Intro -> Login
         window.addEventListener('load', () => {

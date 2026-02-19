@@ -157,17 +157,30 @@
       
         ];
 
-       const intro = document.getElementById('intro-screen');
-        const login = document.getElementById('login-screen');
-        const profile = document.getElementById('profile-screen');
-        const main = document.getElementById('main-content');
-        const container = document.getElementById('movie-list');
+       <script>
+    // DATA FILM (Pastikan ada properti 'genre')
+    const movies = [
+        { title: "Kang Soleh", year: "2024", img: "https://i.postimg.cc/7Z6S9Xp3/kangmak-jpg.jpg", link: "https://123movienow.cc/spa/videoPlayPage/movies/kang-solah-from-kang-mak-x-nenek-gayung-4WIvm8vx8Y4", genre: "Horor" },
+        { title: "Dia Bukan Ibu", year: "2024", img: "https://i.postimg.cc/BZPSTFYh/gambar-jpg.jpg", link: "https://123movienow.cc/spa/videoPlayPage/movies/a-woman-called-mother-6veU3ShHCN8", genre: "Horor" },
+        { title: "Zootopia 2", year: "2025", img: "https://i.postimg.cc/D03wJyKj/image-(1).png", link: "https://123movienow.cc/spa/videoPlayPage/movies/zootopia-2-2DvGllr8x09", genre: "Animasi" },
+        { title: "Grand Prix Of Europe", year: "2024", img: "https://i.postimg.cc/7hXrHxPR/image-(2).jpg", link: "https://123movienow.cc/spa/videoPlayPage/movies/grand-prix-of-europe-E0MyzLzbkT5", genre: "Aksi" },
+        { title: "Mama: Pesan dari Neraka", year: "2024", img: "https://i.postimg.cc/Pr5Z42Df/image.png", link: "https://123movienow.cc/spa/videoPlayPage/movies/mama-pesan-dari-neraka-cam-yNMYEmsXCB9", genre: "Horor" }
+    ];
+
+    const intro = document.getElementById('intro-screen');
+    const login = document.getElementById('login-screen');
+    const profile = document.getElementById('profile-screen');
+    const main = document.getElementById('main-content');
+    const container = document.getElementById('movie-list');
+    
+    // Variabel pembantu untuk kategori
     let kategoriSekarang = "Semua";
 
-    // Fungsi Utama buat nampilin film (Cuma satu fungsi biar ga error)
+    // FUNGSI UTAMA (Sudah digabung: Bisa Search + Bisa Kategori)
     function tampilkanFilm(keyword = "") {
         container.innerHTML = "";
         
+        // Logika Filter: Cek Nama DAN Cek Kategori
         const hasilFilter = movies.filter(m => {
             const cocokNama = m.title.toLowerCase().includes(keyword.toLowerCase());
             const cocokGenre = (kategoriSekarang === "Semua") || (m.genre === kategoriSekarang);
@@ -176,8 +189,10 @@
 
         hasilFilter.forEach((movie, index) => {
             const card = document.createElement('div');
+            // Menjaga class desain asli kamu
             card.className = "movie-card rounded-2xl overflow-hidden flex flex-col shadow-2xl shadow-black";
             card.style.animation = `fadeIn 0.6s ease forwards ${index * 0.1}s`; 
+            
             card.innerHTML = `
                 <a href="${movie.link}" target="_blank" class="relative group block overflow-hidden">
                     <img src="${movie.img}" class="w-full h-[320px] object-cover transition-transform duration-700 group-hover:scale-110">
@@ -187,93 +202,56 @@
                 </a>
                 <div class="p-4 flex flex-col flex-grow text-center bg-[#181818]">
                     <h2 class="font-bold text-sm h-10 overflow-hidden mb-1">${movie.title}</h2>
-                    <p class="text-[10px] text-red-500 font-bold mb-3">${movie.genre}</p>
+                    <p class="text-[10px] text-red-500 font-bold mb-3 uppercase tracking-widest">${movie.genre} | ${movie.year}</p>
                     <a href="${movie.link}" target="_blank" class="btn-nonton mt-auto block w-full py-3 rounded-xl font-black text-[10px] text-white uppercase shadow-lg shadow-red-600/20">Nonton Sekarang</a>
                 </div>`;
             container.appendChild(card);
         });
     }
 
-    // Fungsi pas tombol kategori diklik
+    // Fungsi klik tombol kategori
     function filterKategori(kat) {
         kategoriSekarang = kat;
+        // Jalankan tampilkan film dengan kata kunci yang ada di search input saat ini
         tampilkanFilm(document.getElementById('searchInput').value);
     }
 
-    // Input search
+    // Input search (Event Listener)
     document.getElementById('searchInput').addEventListener('input', (e) => {
         tampilkanFilm(e.target.value);
     });
 
-    // Jalankan pertama kali
-    window.onload = () => {
-        // (Logika intro kamu tetep di sini)
+    // Logic 1: Intro -> Login
+    window.addEventListener('load', () => {
         setTimeout(() => {
-            document.getElementById('intro-screen').style.display = 'none';
-            document.getElementById('login-screen').style.display = 'flex';
+            intro.style.opacity = '0';
+            setTimeout(() => { 
+                intro.style.display = 'none'; 
+                login.style.display = 'flex'; 
+            }, 1000);
         }, 3000);
-    };
+    });
 
-    // Panggil saat masuk ke home
-    function masukKeHome() {
-        document.getElementById('profile-screen').style.display = 'none';
-        document.getElementById('main-content').classList.remove('hidden');
-        document.getElementById('main-content').style.opacity = '1';
-        tampilkanFilm(); // Munculkan semua film
+    // Logic 2: Login -> Profile
+    function handleLogin() {
+        const name = document.getElementById('userNameInput').value;
+        if (name.trim() !== "") {
+            document.getElementById('display-name').innerText = name;
+            login.style.display = 'none';
+            profile.style.display = 'flex';
+        } else { alert("Isi nama kamu dulu ya!"); }
     }
 
-        // Logic 1: Intro -> Login
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                intro.style.opacity = '0';
-                setTimeout(() => { 
-                    intro.style.display = 'none'; 
-                    login.style.display = 'flex'; 
-                }, 1000);
-            }, 3000);
-        });
-
-        // Logic 2: Login -> Profile
-        function handleLogin() {
-            const name = document.getElementById('userNameInput').value;
-            if (name.trim() !== "") {
-                document.getElementById('display-name').innerText = name;
-                login.style.display = 'none';
-                profile.style.display = 'flex';
-            } else { alert("Isi nama kamu dulu ya!"); }
-        }
-
-        // Logic 3: Profile -> Home
-        function masukKeHome() {
-            profile.style.display = 'none';
-            main.classList.remove('hidden');
+    // Logic 3: Profile -> Home
+    function masukKeHome() {
+        profile.style.display = 'none';
+        main.classList.remove('hidden');
+        // Menambahkan delay sedikit agar transisinya halus
+        setTimeout(() => {
             main.style.opacity = '1';
-            tampilkanFilm();
-        }
-
-        function tampilkanFilm(filter = "") {
-            container.innerHTML = "";
-            const filtered = movies.filter(m => m.title.toLowerCase().includes(filter.toLowerCase()));
-            filtered.forEach((movie, index) => {
-                const card = document.createElement('div');
-                card.className = "movie-card rounded-2xl overflow-hidden flex flex-col";
-                card.style.animation = `fadeIn 0.6s ease forwards ${index * 0.1}s`; 
-                card.innerHTML = `
-                    <a href="${movie.link}" target="_blank" class="relative group block overflow-hidden">
-                        <img src="${movie.img}" class="w-full h-[320px] object-cover transition-transform duration-700 group-hover:scale-110">
-                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                            <span class="text-white font-bold border-2 border-white px-5 py-2 rounded-full text-[10px] uppercase">Nonton</span>
-                        </div>
-                    </a>
-                    <div class="p-4 flex flex-col flex-grow text-center">
-                        <h2 class="font-bold text-sm h-10 overflow-hidden mb-1">${movie.title}</h2>
-                        <p class="text-[10px] text-gray-400 mb-4 font-bold uppercase tracking-widest">${movie.year}</p>
-                        <a href="${movie.link}" target="_blank" class="btn-nonton mt-auto block w-full py-3 rounded-xl font-black text-[10px] text-white uppercase shadow-lg">Nonton Sekarang</a>
-                    </div>`;
-                container.appendChild(card);
-            });
-        }
-        document.getElementById('searchInput').addEventListener('input', (e) => tampilkanFilm(e.target.value));
-    </script>
+            tampilkanFilm(); // Memanggil fungsi gabungan
+        }, 100);
+    }
+</script>
 </body>
 </html>

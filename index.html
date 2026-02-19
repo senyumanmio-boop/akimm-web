@@ -2,120 +2,117 @@
 <html lang="id">
 <head>
     <meta name="google-site-verification" content="xMjn7awj8cGbcykGikzrnf80PNwDQHcj52d3ccnWxj4" />
-    <meta name="description" content="KimmMovie Net - Portal film terbaru pilihan Akimm dengan koleksi film terupdate 2024-2025.">
-    <meta name="keywords" content="KimmMovie Net, KimmMovie, Nonton Film Akimm, Kang Mak, Dia Bukan Ibu">
-    <meta name="author" content="Akimm">
-    <meta name="robots" content="index, follow">
-
-    <meta property="og:title" content="KimmMovie Net - Portal Film Akimm">
-    <meta property="og:description" content="Nonton koleksi film terbaru 2025 hanya di KimmMovie Net.">
-    <meta property="og:image" content="https://www.themoviedb.org/t/p/w600_and_h900_bestv2/vS7VpG7VshmN0Xh0L9090.jpg">
-    <meta property="og:url" content="https://username-kamu.github.io/nama-repo-kamu/">
-    
-    <link rel="icon" href="https://i.postimg.cc/DZ3yMyM3/lalala-removebg-preview.png" type="image/x-icon">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Selamat Datang di KimmMovie Net</title>
+    <title>KimmMovie Net - Login</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;700;900&display=swap');
         
         body { 
-            background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), 
-                        url('https://i.postimg.cc/CLXSzxHk/hauhaha.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
+            background: #141414;
             color: white; 
             font-family: 'Inter', sans-serif;
-            min-height: 100vh;
             overflow-x: hidden;
         }
 
-        /* PERBAIKAN: Intro Screen harus punya Z-index tinggi dan transisi halus */
+        /* 1. INTRO STYLE */
         #intro-screen {
             position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            background-color: black;
+            inset: 0;
+            background: black;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            z-index: 9999; /* Pastikan di atas segalanya */
-            opacity: 1;
-            transition: opacity 1s ease-out, visibility 1s; 
+            z-index: 9999;
+            transition: opacity 1s ease;
         }
 
         #intro-h {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 200px;
+            font-size: 150px;
             color: #e50914;
-            opacity: 0;
-            animation: HScaleIn 1s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: zoomIn 1.5s forwards;
         }
 
-        #intro-welcome {
-            font-size: 24px;
-            color: white;
-            opacity: 0;
-            margin-top: 20px;
-            animation: fadeIn 1s forwards 1s;
+        /* 2. LOGIN STYLE */
+        #login-screen {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://i.postimg.cc/CLXSzxHk/hauhaha.jpg');
+            background-size: cover;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9000;
         }
 
-        @keyframes HScaleIn {
-            from { transform: scale(0); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
+        /* 3. PROFILE STYLE */
+        #profile-screen {
+            position: fixed;
+            inset: 0;
+            background: #141414;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 8000;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        .profile-card:hover img { border: 3px solid white; transform: scale(1.1); }
 
-        .movie-card { 
-            transition: all 0.4s ease;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px); 
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            opacity: 0;
-        }
+        @keyframes zoomIn { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1.2); opacity: 1; } }
         
-        .movie-card:hover { 
-            transform: translateY(-10px); 
-            border-color: #e50914; 
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-        }
-
-        .btn-nonton { background: #e50914; transition: 0.3s; }
-        .btn-nonton:hover { background: #ff0f1b; box-shadow: 0 0 20px #e50914; }
-        .neon-text { text-shadow: 0 0 15px rgba(229, 9, 20, 0.8); }
+        .hidden-el { display: none !important; }
+        .fade-in { animation: fadeIn 0.8s forwards; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
-<body class="p-6 md:p-12">
+<body>
 
     <div id="intro-screen">
         <div id="intro-h">H</div>
-        <div id="intro-welcome">Selamat Datang di KimmMovie Net</div>
+        <div id="intro-welcome" class="text-xl mt-4 opacity-0">Selamat Datang di KimmMovie Net</div>
     </div>
 
-    <div id="main-content" class="max-w-7xl mx-auto opacity-0">
+    <div id="login-screen" class="fade-in">
+        <div class="bg-black/80 p-10 rounded-md w-full max-w-md border border-white/10">
+            <h2 class="text-3xl font-bold mb-8">Masuk</h2>
+            <input type="text" id="userNameInput" placeholder="Masukkan nama kamu..." 
+                class="w-full bg-[#333] p-4 rounded mb-6 outline-none focus:bg-[#444] transition">
+            <button onclick="handleLogin()" class="w-full bg-[#e50914] py-3 rounded font-bold hover:bg-[#ff0f1b] transition">
+                Masuk
+            </button>
+            <p class="text-gray-500 mt-6 text-sm">Baru di KimmMovie? <span class="text-white">Daftar sekarang.</span></p>
+        </div>
+    </div>
+
+    <div id="profile-screen" class="fade-in">
+        <h1 class="text-5xl mb-12">Siapa yang menonton?</h1>
+        <div class="flex gap-8">
+            <div onclick="masukKeHome()" class="profile-card cursor-pointer text-center group">
+                <img src="https://i.postimg.cc/DZ3yMyM3/lalala-removebg-preview.png" class="w-32 h-32 rounded object-cover mb-4 transition border-3 border-transparent">
+                <p id="display-name" class="text-gray-400 group-hover:text-white text-xl font-bold">User</p>
+            </div>
+            <div class="profile-card cursor-pointer text-center group opacity-50">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png" class="w-32 h-32 rounded object-cover mb-4">
+                <p class="text-gray-400 text-xl font-bold">Tamu</p>
+            </div>
+        </div>
+        <button class="mt-20 border border-gray-500 px-8 py-2 text-gray-500 hover:text-white hover:border-white transition uppercase tracking-widest">Kelola Profil</button>
+    </div>
+
+    <div id="main-content" class="hidden-el p-6 md:p-12 max-w-7xl mx-auto">
         <header class="text-center mb-16">
-            <h1 class="text-6xl font-black tracking-tighter italic neon-text">
+            <h1 class="text-6xl font-black italic">
                 <span class="text-red-600">Kimm</span>Movie <span class="bg-red-600 px-3 py-1 rounded-md text-white">Net</span>
             </h1>
-            <p class="text-gray-400 mt-4 text-xs font-bold tracking-[0.4em] uppercase">Portal Film Akimm Terbaru</p>
-            
-            <div class="mt-10 max-w-lg mx-auto relative group">
-                <input type="text" id="searchInput" placeholder="Cari film kesayangan kamu..." 
-                    class="w-full bg-white/10 backdrop-blur-md border border-white/20 rounded-full py-4 px-8 text-sm focus:outline-none focus:border-red-600 focus:ring-2 focus:ring-red-600/50 transition-all">
-                <div class="absolute right-5 top-4 text-gray-500">🔍</div>
+            <div class="mt-10 max-w-lg mx-auto relative">
+                <input type="text" id="searchInput" placeholder="Cari film..." class="w-full bg-white/10 border border-white/20 rounded-full py-4 px-8 outline-none">
             </div>
         </header>
-
-        <div id="movie-list" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
-            </div>
+        <div id="movie-list" class="grid grid-cols-2 md:grid-cols-5 gap-8"></div>
     </div>
 
     <script>
@@ -136,8 +133,47 @@
         const container = document.getElementById('movie-list');
         const searchInput = document.getElementById('searchInput');
         const introScreen = document.getElementById('intro-screen');
+        const loginScreen = document.getElementById('login-screen');
+        const profileScreen = document.getElementById('profile-screen');
         const mainContent = document.getElementById('main-content');
 
+        // LOGIKA 1: INTRO KE LOGIN
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                introScreen.style.opacity = '0';
+                setTimeout(() => {
+                    introScreen.style.display = 'none';
+                    loginScreen.style.display = 'flex';
+                }, 1000);
+            }, 3000);
+        });
+
+        // LOGIKA 2: LOGIN KE PROFIL
+        function handleLogin() {
+            const name = document.getElementById('userNameInput').value;
+            if (name.trim() !== "") {
+                document.getElementById('display-name').innerText = name;
+                loginScreen.style.opacity = '0';
+                setTimeout(() => {
+                    loginScreen.style.display = 'none';
+                    profileScreen.style.display = 'flex';
+                }, 500);
+            } else {
+                alert("Masukkan nama kamu dulu ya!");
+            }
+        }
+
+        // LOGIKA 3: PROFIL KE HOME (Konten Kamu)
+        function masukKeHome() {
+            profileScreen.style.display = 'none';
+            mainContent.classList.remove('hidden');
+            setTimeout(() => {
+                mainContent.style.opacity = '1';
+                tampilkanFilm();
+            }, 100);
+        }
+
+        // FUNGSI TAMPILKAN FILM (Punya Kamu)
         function tampilkanFilm(filter = "") {
             container.innerHTML = "";
             const filtered = movies.filter(m => m.title.toLowerCase().includes(filter.toLowerCase()));
@@ -167,19 +203,6 @@
         }
 
         searchInput.addEventListener('input', (e) => tampilkanFilm(e.target.value));
-        
-        // PERBAIKAN LOGIKA INTRO: Hilangkan total elemen setelah animasi
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                introScreen.style.opacity = '0'; // Mulai memudar
-                
-                setTimeout(() => {
-                    introScreen.style.display = 'none'; // Hapus total dari susunan layar
-                    mainContent.style.opacity = '1'; // Munculkan konten utama
-                    tampilkanFilm(); 
-                }, 1000); // Waktu memudar
-            }, 3000); // Durasi intro diam di layar
-        });
     </script>
 </body>
 </html>

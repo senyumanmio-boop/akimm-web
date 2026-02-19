@@ -6,155 +6,102 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KimmMovie Net - Portal Film Akimm</title>
+    <link rel="icon" type="image/png" href="https://i.postimg.cc/DZ3yMyM3/lalala-removebg-preview.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-     /* Perbaikan Logo agar tidak menabrak di HP */
-.logo-net { 
-    display: inline-block;
-    background-color: #e50914; 
-    padding: 2px 10px; 
-    border-radius: 8px; 
-    font-size: 0.5em; /* Kecilkan sedikit di HP */
-    vertical-align: middle;
-}
-
-/* Biar tombol kategori rapi menyamping di HP */
-.category-container {
-    display: flex;
-    overflow-x: auto; /* Bisa digeser ke samping kalau kepanjangan */
-    white-space: nowrap;
-    justify-content: center;
-    gap: 10px;
-    padding: 10px;
-    scrollbar-width: none; /* Hilangkan scrollbar di Firefox */
-}
-.category-container::-webkit-scrollbar {
-    display: none; /* Hilangkan scrollbar di Chrome/HP */
-}
-
-/* Ukuran Font Header di HP */
-@media (max-width: 640px) {
-    header h1 { font-size: 3rem !important; }
-    header p { font-size: 8px !important; letter-spacing: 0.3em !important; }
-}
         @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;700;900&display=swap');
         
-        body { background-color: #0a0a0a; color: white; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        body { background-color: #0a0a0a; color: white; font-family: 'Inter', sans-serif; overflow-x: hidden; margin: 0; }
 
-        /* INTRO SCREEN (Logo H) */
-        #intro-screen {
-            position: fixed; inset: 0; background: black;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            z-index: 9999; transition: opacity 1s ease;
-        }
-        #intro-h { font-family: 'Bebas Neue', sans-serif; font-size: 150px; color: #e50914; animation: zoomIn 1.5s forwards; }
+        /* Intro H - Tetap Keren */
+        #intro-screen { position: fixed; inset: 0; background: black; display: flex; align-items: center; justify-content: center; z-index: 9999; transition: opacity 1s ease; }
+        #intro-h { font-family: 'Bebas Neue', sans-serif; font-size: clamp(100px, 20vw, 200px); color: #e50914; animation: zoomIn 1.5s ease-out forwards; }
 
-        /* LOGIN & PROFILE SCREEN */
-        #login-screen, #profile-screen {
-            position: fixed; inset: 0; background: #141414;
-            display: none; align-items: center; justify-content: center; z-index: 9000;
-        }
-        #login-screen {
-            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://i.postimg.cc/CLXSzxHk/hauhaha.jpg');
-            background-size: cover; background-position: center;
+        @keyframes zoomIn {
+            0% { transform: scale(0.5); opacity: 0; filter: blur(10px); }
+            100% { transform: scale(1); opacity: 1; filter: blur(0); }
         }
 
-        /* HEADER & SEARCH (DESAIN ASLI KAMU) */
-        .main-header {
-            background: linear-gradient(rgba(10,10,10,0.8), rgba(10,10,10,0.95)), url('https://i.postimg.cc/CLXSzxHk/hauhaha.jpg');
-            background-size: cover; background-position: center; padding: 100px 20px;
+        /* Login & Profile */
+        #login-screen, #profile-screen { position: fixed; inset: 0; background: #000; display: none; align-items: center; justify-content: center; z-index: 9000; text-align: center; }
+
+        /* HEADER & LOGO RAPI (Perbaikan buat HP) */
+        .logo-net { 
+            background-color: #e50914; 
+            padding: 2px 8px; 
+            border-radius: 6px; 
+            font-size: 0.4em; 
+            vertical-align: middle;
+            margin-left: 4px;
+            display: inline-block;
+            font-style: normal;
         }
-        .logo-net { background-color: #e50914; padding: 5px 15px; border-radius: 10px; margin-left: 10px; font-style: normal; }
 
-        /* MOVIE CARD (DESAIN ASLI KAMU) */
-        .movie-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); transition: all 0.4s ease; opacity: 0; }
-        .movie-card:hover { transform: translateY(-10px); background: rgba(255, 255, 255, 0.08); border-color: #e50914; box-shadow: 0 20px 40px rgba(229, 9, 20, 0.2); }
-        .btn-nonton { background: linear-gradient(45deg, #e50914, #ff0f1b); box-shadow: 0 10px 20px rgba(229, 9, 20, 0.4); transition: all 0.3s ease; }
-        .btn-nonton:hover { transform: scale(1.05); }
+        /* Kategori Rapi Menyamping di HP */
+        .category-container {
+            display: flex;
+            overflow-x: auto;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        .category-container::-webkit-scrollbar { display: none; }
 
-        @keyframes zoomIn { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1.2); opacity: 1; } }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .fade-in { animation: fadeIn 0.8s forwards; }
+        .btn-cat { background: rgba(255,255,255,0.1); padding: 8px 16px; border-radius: 20px; font-size: 10px; font-weight: 900; transition: 0.3s; white-space: nowrap; }
+        .btn-cat.active { background: #e50914; }
+
+        /* Kartu Film */
+        .movie-card { background: #181818; transition: transform 0.3s ease; height: 100%; border-radius: 12px; overflow: hidden; }
+        .movie-card:hover { transform: scale(1.05); }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
- <style>
-    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;700;900&display=swap');
-    
-    body { background-color: #0a0a0a; color: white; font-family: 'Inter', sans-serif; overflow-x: hidden; margin: 0; }
-
-    /* Animasi Intro H */
-    #intro-screen { position: fixed; inset: 0; background: black; display: flex; align-items: center; justify-content: center; z-index: 9999; transition: opacity 1s ease; }
-    #intro-h { font-family: 'Bebas Neue', sans-serif; font-size: 150px; color: #e50914; animation: zoomIn 1.5s ease-out forwards; }
-
-    @keyframes zoomIn {
-        0% { transform: scale(0.3); opacity: 0; filter: blur(10px); }
-        100% { transform: scale(1); opacity: 1; filter: blur(0); }
-    }
-
-    /* Logo Net agar Sejajar */
-    .logo-net { 
-        background-color: #e50914; 
-        padding: 0px 8px; 
-        border-radius: 4px; 
-        font-style: normal;
-        font-size: 0.4em; 
-        vertical-align: middle;
-        margin-left: 5px;
-    }
-
-    /* Kategori Rapi di HP */
-    .category-container {
-        display: flex;
-        overflow-x: auto;
-        justify-content: center;
-        gap: 8px;
-        padding: 10px;
-        scrollbar-width: none;
-    }
-    .category-container::-webkit-scrollbar { display: none; }
-
-    /* Kartu Film */
-    .movie-card { background: #181818; transition: transform 0.3s ease; height: 100%; }
-    .movie-card:hover { transform: scale(1.05); z-index: 10; }
-
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-</style>
 </head>
 <body>
 
     <div id="intro-screen"><div id="intro-h">H</div></div>
 
-<div id="main-content" class="hidden opacity-0 transition-opacity duration-1000">
-    <header class="py-10 text-center">
-        <h1 class="text-4xl md:text-7xl font-black italic mb-2">
-            <span class="text-red-600">Kimm</span>Movie<span class="logo-net">Net</span>
-        </h1>
-        <p class="text-gray-500 uppercase tracking-[0.3em] text-[8px] font-bold mb-8">Portal Film Akimm Terbaru</p>
-        
-        <div class="category-container mb-6">
-            <button onclick="filterKategori('Semua')" class="bg-red-600 px-4 py-2 rounded-full text-[10px] font-bold">Semua</button>
-            <button onclick="filterKategori('Horor')" class="bg-white/10 px-4 py-2 rounded-full text-[10px] font-bold">Horor</button>
-            <button onclick="filterKategori('Aksi')" class="bg-white/10 px-4 py-2 rounded-full text-[10px] font-bold">Aksi</button>
-            <button onclick="filterKategori('Animasi')" class="bg-white/10 px-4 py-2 rounded-full text-[10px] font-bold">Animasi</button>
+    <div id="login-screen">
+        <div class="px-6 w-full max-w-sm">
+            <h2 class="text-4xl font-black italic mb-8 text-red-600">KimmMovie</h2>
+            <input type="text" id="userNameInput" placeholder="Nama kamu..." class="w-full bg-[#222] p-4 rounded-xl mb-4 outline-none border border-white/10 text-center">
+            <button onclick="handleLogin()" class="w-full bg-[#e50914] py-4 rounded-xl font-black tracking-widest">MASUK</button>
         </div>
+    </div>
 
-        <div class="max-w-md mx-auto px-6">
-            <input type="text" id="searchInput" placeholder="Cari film kesayangan kamu..." 
-                class="w-full bg-white/5 border border-white/10 rounded-full py-3 px-6 outline-none focus:border-red-600 text-xs text-center">
+    <div id="profile-screen" class="flex-col">
+        <h1 class="text-2xl font-bold mb-10">Siapa yang menonton?</h1>
+        <div onclick="masukKeHome()" class="cursor-pointer group">
+            <img src="https://i.postimg.cc/DZ3yMyM3/lalala-removebg-preview.png" class="w-32 h-32 rounded-xl mb-4 group-hover:ring-4 ring-white transition">
+            <p id="display-name" class="text-xl font-bold text-gray-400 group-hover:text-white">User</p>
         </div>
-    </header>
+    </div>
 
-    <main class="max-w-7xl mx-auto p-4">
-        <div id="movie-list" class="grid grid-cols-2 md:grid-cols-5 gap-4"></div>
-    </main>
-</div>
+    <div id="main-content" class="hidden opacity-0 transition-opacity duration-1000">
+        <header class="pt-10 pb-6 text-center">
+            <h1 class="text-4xl md:text-7xl font-black italic mb-2">
+                <span class="text-red-600">Kimm</span>Movie<span class="logo-net">Net</span>
+            </h1>
+            <p class="text-gray-500 uppercase tracking-[0.3em] text-[8px] font-bold mb-8">Portal Film Akimm Terbaru</p>
+            
+            <div class="category-container mb-6">
+                <button onclick="filterKategori('Semua', this)" class="btn-cat active">Semua</button>
+                <button onclick="filterKategori('Horor', this)" class="btn-cat">Horor</button>
+                <button onclick="filterKategori('Aksi', this)" class="btn-cat">Aksi</button>
+                <button onclick="filterKategori('Animasi', this)" class="btn-cat">Animasi</button>
+            </div>
+
+            <div class="max-w-md mx-auto px-6">
+                <input type="text" id="searchInput" placeholder="Cari film kesayangan kamu..." 
+                    class="w-full bg-white/5 border border-white/10 rounded-full py-3 px-6 outline-none focus:border-red-600 text-xs text-center transition-all">
+            </div>
         </header>
 
-        <div class="max-w-7xl mx-auto p-8">
-            <div id="movie-list" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8"></div>
-        </div>
+        <main class="max-w-7xl mx-auto p-4">
+            <div id="movie-list" class="grid grid-cols-2 md:grid-cols-5 gap-4"></div>
+        </main>
     </div>
 
     <script>
@@ -210,97 +157,81 @@
       
         ];
 
-  // 2. AMBIL SEMUA ELEMEN
-    const intro = document.getElementById('intro-screen');
-    const login = document.getElementById('login-screen');
-    const profile = document.getElementById('profile-screen');
-    const main = document.getElementById('main-content');
-    const container = document.getElementById('movie-list');
-    const searchInput = document.getElementById('searchInput');
-    
-    let kategoriSekarang = "Semua";
-
-    // 3. FUNGSI TAMPILKAN FILM (Satu fungsi untuk semua)
-    function tampilkanFilm(keyword = "") {
-        container.innerHTML = "";
+  const intro = document.getElementById('intro-screen');
+        const login = document.getElementById('login-screen');
+        const profile = document.getElementById('profile-screen');
+        const main = document.getElementById('main-content');
+        const container = document.getElementById('movie-list');
+        const searchInput = document.getElementById('searchInput');
         
-        const hasilFilter = movies.filter(m => {
-            const cocokNama = m.title.toLowerCase().includes(keyword.toLowerCase());
-            const cocokGenre = (kategoriSekarang === "Semua") || (m.genre === kategoriSekarang);
-            return cocokNama && cocokGenre;
+        let kategoriSekarang = "Semua";
+
+        // Alur Intro -> Login
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                intro.style.opacity = '0';
+                setTimeout(() => { 
+                    intro.style.display = 'none'; 
+                    login.style.display = 'flex'; 
+                }, 1000);
+            }, 3000);
         });
 
-        hasilFilter.forEach((movie, index) => {
-            const card = document.createElement('div');
-            card.className = "movie-card rounded-2xl overflow-hidden flex flex-col shadow-2xl shadow-black";
-            card.style.animation = `fadeIn 0.6s ease forwards ${index * 0.1}s`; 
-            
-            card.innerHTML = `
-                <a href="${movie.link}" target="_blank" class="relative group block overflow-hidden">
-                    <img src="${movie.img}" class="w-full h-[320px] object-cover transition-transform duration-700 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <span class="text-white font-bold border-2 border-white px-5 py-2 rounded-full text-[10px] uppercase">Nonton</span>
-                    </div>
-                </a>
-                <div class="p-4 flex flex-col flex-grow text-center bg-[#181818]">
-                    <h2 class="font-bold text-sm h-10 overflow-hidden mb-1">${movie.title}</h2>
-                    <p class="text-[10px] text-red-500 font-bold mb-3 uppercase tracking-widest">${movie.genre} | ${movie.year}</p>
-                    <a href="${movie.link}" target="_blank" class="btn-nonton mt-auto block w-full py-3 rounded-xl font-black text-[10px] text-white uppercase shadow-lg shadow-red-600/20">Nonton Sekarang</a>
-                </div>`;
-            container.appendChild(card);
-        });
-    }
+        function handleLogin() {
+            const name = document.getElementById('userNameInput').value;
+            if (name.trim() !== "") {
+                document.getElementById('display-name').innerText = name;
+                login.style.display = 'none';
+                profile.style.display = 'flex';
+            } else { alert("Isi nama dulu bos!"); }
+        }
 
-    // 4. FUNGSI FILTER KATEGORI
-    function filterKategori(kat) {
-        kategoriSekarang = kat;
-        tampilkanFilm(searchInput.value);
-    }
-
-    // 5. EVENT SEARCH
-    searchInput.addEventListener('input', (e) => {
-        tampilkanFilm(e.target.value);
-    });
-
-    // 6. ALUR JALANNYA WEB (Satu Alur Berurutan)
-    window.addEventListener('load', () => {
-        // Layar 1: Intro (H)
-        setTimeout(() => {
-            intro.style.opacity = '0';
+        function masukKeHome() {
+            profile.style.display = 'none';
+            main.classList.remove('hidden');
             setTimeout(() => { 
-                intro.style.display = 'none'; 
-                login.style.display = 'flex'; // Masuk ke Login
-            }, 1000);
-        }, 3000);
-    });
+                main.style.opacity = '1'; 
+                tampilkanFilm(); 
+            }, 100);
+        }
 
-    // Layar 2: Login -> Profil
-    function handleLogin() {
-        const name = document.getElementById('userNameInput').value;
-        if (name.trim() !== "") {
-            document.getElementById('display-name').innerText = name;
-            login.style.display = 'none';
-            profile.style.display = 'flex';
-        } else { alert("Isi nama kamu dulu ya!"); }
-    }
+        function tampilkanFilm(keyword = "") {
+            if (!container) return;
+            container.innerHTML = "";
+            const filtered = movies.filter(m => {
+                const cocokNama = m.title.toLowerCase().includes(keyword.toLowerCase());
+                const cocokGenre = (kategoriSekarang === "Semua") || (m.genre === kategoriSekarang);
+                return cocokNama && cocokGenre;
+            });
 
-    // Layar 3: Profil -> Home Utama
-    function masukKeHome() {
-        profile.style.display = 'none';
-        main.classList.remove('hidden');
-        setTimeout(() => {
-            main.style.opacity = '1';
-            tampilkanFilm(); // Akhirnya munculin filmnya
-        }, 100);
-    }
-     function masukKeHome() {
-    profile.style.display = 'none';
-    main.classList.remove('hidden');
-    setTimeout(() => { 
-        main.style.opacity = '1'; 
-        tampilkanFilm(); // PEMICU FILM MUNCUL
-    }, 100);
-}
-</script>
+            filtered.forEach((movie, i) => {
+                const card = document.createElement('div');
+                card.className = "movie-card flex flex-col shadow-lg shadow-black/50";
+                card.style.animation = `fadeIn 0.5s ease forwards ${i * 0.1}s`;
+                card.innerHTML = `
+                    <div class="relative group h-64 overflow-hidden">
+                        <img src="${movie.img}" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                            <a href="${movie.link}" class="border-2 border-white px-4 py-1 rounded-full text-[8px] font-bold">NONTON</a>
+                        </div>
+                    </div>
+                    <div class="p-3 text-center bg-[#181818] flex-grow">
+                        <h2 class="font-bold text-[11px] mb-1 truncate">${movie.title}</h2>
+                        <p class="text-[9px] text-red-500 font-bold uppercase mb-2">${movie.genre}</p>
+                        <a href="${movie.link}" class="block bg-red-600 py-2 rounded-lg text-[9px] font-black tracking-tighter">NONTON SEKARANG</a>
+                    </div>`;
+                container.appendChild(card);
+            });
+        }
+
+        function filterKategori(kat, btn) {
+            kategoriSekarang = kat;
+            document.querySelectorAll('.btn-cat').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            tampilkanFilm(searchInput.value);
+        }
+
+        searchInput.addEventListener('input', (e) => tampilkanFilm(e.target.value));
+    </script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MyMovieBox - Portal Nonton Gratis</title>
+    <title>MovieKimm - Portal Nonton Gratis</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { background-color: #000; color: white; }
@@ -25,54 +25,37 @@
        // Bagian ini adalah daftar film kamu
         const movies = [
             { 
-                title: "Kang Mak", 
-                year: "2024", 
+                title: "Kang Mak Dan Nenek Gayung", 
+                year: "2025", 
                 img: "https://i.postimg.cc/7Z6S9Xp3/kangmak-jpg.jpg", // Cari poster Kang Mak di Google/TMDB
                 link: "https://123movienow.cc/spa/videoPlayPage/movies/kang-solah-from-kang-mak-x-nenek-gayung-4WIvm8vx8Y4?id=4171287358844864104&type=/movie/detail&detailSe=&detailEp=&lang=en" 
+            },
+            
+            { 
+                title: "Dia Bukan Ibu", 
+                year: "2025", 
+                img: "https://i.postimg.cc/BZPSTFYh/gambar-jpg.jpg", 
+                link: "https://123movienow.cc/spa/videoPlayPage/movies/a-woman-called-mother-6veU3ShHCN8?id=7386161536286837808&type=/movie/detail&detailSe=&detailEp=&lang=en" 
             },
             { 
                 title: "Deadpool & Wolverine", 
                 year: "2024", 
                 img: "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/8cdWjvZQUmOZpUzs9UbSLAIpccw.jpg", 
-                link: "ISI_LINK_MOVIEBOX_DEADPOOL_DISINI" 
+                link: "https://www.google.com/search?q=site:moviebox.pro+Deadpool+Wolverine" 
+            },
+            { 
+                title: "Inside Out 2", 
+                year: "2024", 
+                img: "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/vpnVM9B6NMmQpWeZvzLv1o9oIu9.jpg", 
+                link: "https://www.google.com/search?q=site:moviebox.pro+Inside+Out+2" 
+            },
+            { 
+                title: "Despicable Me 4", 
+                year: "2024", 
+                img: "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/wWba3Y7SqzZ6Yv4BeZSLr97rXOU.jpg", 
+                link: "https://www.google.com/search?q=site:moviebox.pro+Despicable+Me+4" 
             }
         ];
-
-        const container = document.getElementById('movie-list');
-
-        movies.forEach(movie => {
-            const card = document.createElement('div');
-            card.className = "movie-card bg-zinc-900 rounded-xl overflow-hidden shadow-xl";
-            card.innerHTML = `
-                <img src="${movie.img}" alt="${movie.title}" class="w-full h-72 object-cover">
-                <div class="p-4 text-center">
-                    <h2 class="font-bold text-sm h-10 overflow-hidden text-ellipsis">${movie.title}</h2>
-                    <p class="text-xs text-gray-500 mb-3">${movie.year}</p>
-                    <a href="${movie.link}" target="_blank" class="btn-nonton block w-full py-2 rounded-lg font-bold text-xs uppercase tracking-widest text-white">
-                        Nonton Sekarang
-                    </a>
-                </div>
-            `;
-            container.appendChild(card);
-        });
-
-        movies.forEach(movie => {
-            // Link langsung ke pencarian MovieBox
-            const linkMovieBox = `https://www.google.com/search?q=site:moviebox.pro+${encodeURIComponent(movie.title)}`;
-            
-            const card = document.createElement('div');
-            card.className = "movie-card bg-zinc-900 rounded-xl overflow-hidden shadow-xl";
-            card.innerHTML = `
-                <img src="${movie.img}" alt="${movie.title}" class="w-full h-72 object-cover">
-                <div class="p-4 text-center">
-                    <h2 class="font-bold text-sm h-10 overflow-hidden text-ellipsis">${movie.title}</h2>
-                    <p class="text-xs text-gray-500 mb-3">${movie.year}</p>
-                    <a href="${linkMovieBox}" target="_blank" class="btn-nonton block w-full py-2 rounded-lg font-bold text-xs uppercase tracking-widest">
-                        Nonton Sekarang
-                    </a>
-                </div>
-            `;
-            container.appendChild(card);
         });
     </script>
 </body>

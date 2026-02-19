@@ -3,14 +3,14 @@
 <head>
     <meta name="google-site-verification" content="xMjn7awj8cGbcykGikzrnf80PNwDQHcj52d3ccnWxj4" />
     <meta name="description" content="KimmMovie Net - Portal film terbaru pilihan Akimm dengan koleksi film terupdate 2024-2025.">
-<meta name="keywords" content="KimmMovie Net, KimmMovie, Nonton Film Akimm, Kang Mak, Dia Bukan Ibu">
-<meta name="author" content="Akimm">
-<meta name="robots" content="index, follow">
+    <meta name="keywords" content="KimmMovie Net, KimmMovie, Nonton Film Akimm, Kang Mak, Dia Bukan Ibu">
+    <meta name="author" content="Akimm">
+    <meta name="robots" content="index, follow">
 
-<meta property="og:title" content="KimmMovie Net - Portal Film Akimm">
-<meta property="og:description" content="Nonton koleksi film terbaru 2025 hanya di KimmMovie Net.">
-<meta property="og:image" content="https://www.themoviedb.org/t/p/w600_and_h900_bestv2/vS7VpG7VshmN0Xh0L9090.jpg">
-<meta property="og:url" content="https://username-kamu.github.io/nama-repo-kamu/">
+    <meta property="og:title" content="KimmMovie Net - Portal Film Akimm">
+    <meta property="og:description" content="Nonton koleksi film terbaru 2025 hanya di KimmMovie Net.">
+    <meta property="og:image" content="https://www.themoviedb.org/t/p/w600_and_h900_bestv2/vS7VpG7VshmN0Xh0L9090.jpg">
+    <meta property="og:url" content="https://username-kamu.github.io/nama-repo-kamu/">
     
     <link rel="icon" href="https://i.postimg.cc/DZ3yMyM3/lalala-removebg-preview.png" type="image/x-icon">
     <meta charset="UTF-8">
@@ -29,10 +29,10 @@
             color: white; 
             font-family: 'Inter', sans-serif;
             min-height: 100vh;
-            overflow-x: hidden; /* Mencegah scroll horizontal */
+            overflow-x: hidden;
         }
 
-        /* Gaya untuk Intro Layar Penuh */
+        /* PERBAIKAN: Intro Screen harus punya Z-index tinggi dan transisi halus */
         #intro-screen {
             position: fixed;
             top: 0; left: 0;
@@ -42,9 +42,9 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            z-index: 1000;
+            z-index: 9999; /* Pastikan di atas segalanya */
             opacity: 1;
-            transition: opacity 1.5s ease-out; /* Animasi fade out */
+            transition: opacity 1s ease-out, visibility 1s; 
         }
 
         #intro-h {
@@ -56,14 +56,13 @@
         }
 
         #intro-welcome {
-            font-size: 30px;
+            font-size: 24px;
             color: white;
             opacity: 0;
             margin-top: 20px;
-            animation: fadeIn 1s forwards 1s; /* Muncul setelah H */
+            animation: fadeIn 1s forwards 1s;
         }
 
-        /* Animasi Kustom */
         @keyframes HScaleIn {
             from { transform: scale(0); opacity: 0; }
             to { transform: scale(1); opacity: 1; }
@@ -74,37 +73,34 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Efek Glassmorphism untuk kartu film */
         .movie-card { 
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            background: rgba(255, 255, 255, 0.05); /* Sedikit transparan */
+            transition: all 0.4s ease;
+            background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(15px); 
             -webkit-backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            opacity: 0; /* Awalnya tersembunyi untuk animasi */
+            opacity: 0;
         }
         
         .movie-card:hover { 
-            transform: translateY(-10px) scale(1.02); 
-            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-10px); 
             border-color: #e50914; 
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
         }
 
         .btn-nonton { background: #e50914; transition: 0.3s; }
         .btn-nonton:hover { background: #ff0f1b; box-shadow: 0 0 20px #e50914; }
-
-        /* Glow pada Header */
         .neon-text { text-shadow: 0 0 15px rgba(229, 9, 20, 0.8); }
     </style>
 </head>
 <body class="p-6 md:p-12">
+
     <div id="intro-screen">
         <div id="intro-h">H</div>
         <div id="intro-welcome">Selamat Datang di KimmMovie Net</div>
     </div>
 
-    <div id="main-content" class="max-w-7xl mx-auto opacity-0" style="transition: opacity 1s ease-in;">
+    <div id="main-content" class="max-w-7xl mx-auto opacity-0">
         <header class="text-center mb-16">
             <h1 class="text-6xl font-black tracking-tighter italic neon-text">
                 <span class="text-red-600">Kimm</span>Movie <span class="bg-red-600 px-3 py-1 rounded-md text-white">Net</span>
@@ -113,84 +109,30 @@
             
             <div class="mt-10 max-w-lg mx-auto relative group">
                 <input type="text" id="searchInput" placeholder="Cari film kesayangan kamu..." 
-                    class="w-full bg-white/10 backdrop-blur-md border border-white/20 rounded-full py-4 px-8 text-sm focus:outline-none focus:border-red-600 focus:ring-2 focus:ring-red-600/50 transition-all placeholder:text-gray-500">
-                <div class="absolute right-5 top-4 text-gray-500 group-hover:text-red-600 transition-colors">
-                    🔍
-                </div>
+                    class="w-full bg-white/10 backdrop-blur-md border border-white/20 rounded-full py-4 px-8 text-sm focus:outline-none focus:border-red-600 focus:ring-2 focus:ring-red-600/50 transition-all">
+                <div class="absolute right-5 top-4 text-gray-500">🔍</div>
             </div>
         </header>
 
         <div id="movie-list" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
             </div>
     </div>
+
     <script>
-        // Daftar film manual yang gambarnya diambil dari link publik (poster umum)
-        // Kamu bisa tambah sendiri daftar ini sesuka hati
-       // Bagian ini adalah daftar film kamu
+        // PERBAIKAN: Struktur data movies yang benar (kurung kurawal diperbaiki)
         const movies = [
-            { 
-                title: "Kang Soleh", 
-                year: "Terbaru", 
-                img: "https://i.postimg.cc/7Z6S9Xp3/kangmak-jpg.jpg", // Cari poster Kang Mak di Google/TMDB
-                link: "https://123movienow.cc/spa/videoPlayPage/movies/kang-solah-from-kang-mak-x-nenek-gayung-4WIvm8vx8Y4?id=4171287358844864104&type=/movie/detail&detailSe=&detailEp=&lang=en" 
-            },
-            
-            { 
-                title: "Dia Bukan Ibu", 
-                year: "Terbaru", 
-                img: "https://i.postimg.cc/BZPSTFYh/gambar-jpg.jpg", 
-                link: "https://123movienow.cc/spa/videoPlayPage/movies/a-woman-called-mother-6veU3ShHCN8?id=7386161536286837808&type=/movie/detail&detailSe=&detailEp=&lang=en" 
-            },
-            { 
-                title: "Zotopia 2", 
-                year: "Terbaru", 
-                img: "https://i.postimg.cc/D03wJyKj/image-(1).png", 
-                link: "https://123movienow.cc/spa/videoPlayPage/movies/zootopia-2-2DvGllr8x09?id=7560929242381797904&type=/movie/detail&detailSe=&detailEp=&lang=en"
-            },
-            { 
-                title: "Grand Prix Of Europe", 
-                year: "Terbaru", 
-                img: "https://i.postimg.cc/7hXrHxPR/image-(2).jpg", 
-                link: "https://123movienow.cc/spa/videoPlayPage/movies/grand-prix-of-europe-E0MyzLzbkT5?id=4945444160850510696&type=/movie/detail&detailSe=&detailEp=&lang=en" 
-            },
-            { 
-                title: "Mama: Pesan dari Neraka", 
-                year: "Terbaru", 
-                img: "https://i.postimg.cc/Pr5Z42Df/image.png", 
-                link: "https://123movienow.cc/spa/videoPlayPage/movies/mama-pesan-dari-neraka-cam-yNMYEmsXCB9?id=8063072805467865120&type=/movie/detail&detailSe=&detailEp=&lang=id" 
-            }
-             { 
-                title: "Rego Nyowo", 
-                year: "Terbaru", 
-                img: "https://i.postimg.cc/C5B0h3tK/image.png", 
-                link: "https://123movienow.cc/spa/videoPlayPage/movies/take-me-to-hell-AScBGrUm1H7?id=6457489304372888704&type=/movie/detail&detailSe=&detailEp=&lang=id" 
-            },
-               { 
-                title: "Jadi Tuh Barang [Indonesian]", 
-                year: "Terbaru", 
-                img: "https://i.postimg.cc/VLFwYWZv/image.png", 
-                link: "https://123movienow.cc/spa/videoPlayPage/movies/jadi-tuh-barang-indonesian-ACoUNOvohW6?id=5824745322790245768&type=/movie/detail&detailSe=&detailEp=&lang=id" 
-            },
-               { 
-                title: "Gara-Gara Warisan", 
-                year: "Terbaru", 
-                img: "https://i.postimg.cc/63CSMBDy/image.png", 
-                link: "https://123movienow.cc/spa/videoPlayPage/movies/gara-gara-warisan-U4Kzb9JCiE1?id=1384849335401301408&type=/movie/detail&detailSe=&detailEp=&lang=id" 
-            },
-               { 
-                title: "Jumbo", 
-                year: "Terbaru", 
-                img: "https://i.postimg.cc/X712cZrj/image.png", 
-                link: "https://123movienow.cc/spa/videoPlayPage/movies/jumbo-uNzNF09vYYa?id=9218428939666867280&type=/movie/detail&detailSe=&detailEp=&lang=id" 
-            },
-               { 
-                title: "Cocomelon", 
-                year: "Terbaru", 
-                img: "https://i.postimg.cc/1tR6jHdK/image.png", 
-                link: "https://123movienow.cc/spa/videoPlayPage/movies/cocomelon-YkTqmeNt1a9?id=7689388421575754368&type=/movie/detail&detailSe=&detailEp=&lang=id" 
-            },
-            
+            { title: "Kang Soleh", year: "2024", img: "https://i.postimg.cc/7Z6S9Xp3/kangmak-jpg.jpg", link: "https://123movienow.cc/spa/videoPlayPage/movies/kang-solah-from-kang-mak-x-nenek-gayung-4WIvm8vx8Y4" },
+            { title: "Dia Bukan Ibu", year: "2024", img: "https://i.postimg.cc/BZPSTFYh/gambar-jpg.jpg", link: "https://123movienow.cc/spa/videoPlayPage/movies/a-woman-called-mother-6veU3ShHCN8" },
+            { title: "Zotopia 2", year: "2025", img: "https://i.postimg.cc/D03wJyKj/image-(1).png", link: "https://123movienow.cc/spa/videoPlayPage/movies/zootopia-2-2DvGllr8x09" },
+            { title: "Grand Prix Of Europe", year: "2024", img: "https://i.postimg.cc/7hXrHxPR/image-(2).jpg", link: "https://123movienow.cc/spa/videoPlayPage/movies/grand-prix-of-europe-E0MyzLzbkT5" },
+            { title: "Mama: Pesan dari Neraka", year: "2024", img: "https://i.postimg.cc/Pr5Z42Df/image.png", link: "https://123movienow.cc/spa/videoPlayPage/movies/mama-pesan-dari-neraka-cam-yNMYEmsXCB9" },
+            { title: "Rego Nyowo", year: "2024", img: "https://i.postimg.cc/C5B0h3tK/image.png", link: "https://123movienow.cc/spa/videoPlayPage/movies/take-me-to-hell-AScBGrUm1H7" },
+            { title: "Jadi Tuh Barang", year: "2024", img: "https://i.postimg.cc/VLFwYWZv/image.png", link: "https://123movienow.cc/spa/videoPlayPage/movies/jadi-tuh-barang-indonesian-ACoUNOvohW6" },
+            { title: "Gara-Gara Warisan", year: "2022", img: "https://i.postimg.cc/63CSMBDy/image.png", link: "https://123movienow.cc/spa/videoPlayPage/movies/gara-gara-warisan-U4Kzb9JCiE1" },
+            { title: "Jumbo", year: "2024", img: "https://i.postimg.cc/X712cZrj/image.png", link: "https://123movienow.cc/spa/videoPlayPage/movies/jumbo-uNzNF09vYYa" },
+            { title: "Cocomelon", year: "Kids", img: "https://i.postimg.cc/1tR6jHdK/image.png", link: "https://123movienow.cc/spa/videoPlayPage/movies/cocomelon-YkTqmeNt1a9" }
         ];
+
         const container = document.getElementById('movie-list');
         const searchInput = document.getElementById('searchInput');
         const introScreen = document.getElementById('intro-screen');
@@ -203,19 +145,19 @@
             filtered.forEach((movie, index) => {
                 const card = document.createElement('div');
                 card.className = "movie-card rounded-2xl overflow-hidden flex flex-col";
-                card.style.animation = `fadeIn 0.6s ease forwards ${index * 0.1 + 2.5}s`; // Delay setelah intro
+                card.style.animation = `fadeIn 0.6s ease forwards ${index * 0.1}s`; 
                 
                 card.innerHTML = `
                     <a href="${movie.link}" target="_blank" class="relative group block overflow-hidden">
                         <img src="${movie.img}" alt="${movie.title}" class="w-full h-[320px] object-cover transition-transform duration-700 group-hover:scale-110">
                         <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                            <span class="text-white font-bold border-2 border-white px-5 py-2 rounded-full text-[10px] tracking-widest uppercase">View Detail</span>
+                            <span class="text-white font-bold border-2 border-white px-5 py-2 rounded-full text-[10px] tracking-widest uppercase">Nonton</span>
                         </div>
                     </a>
                     <div class="p-4 flex flex-col flex-grow text-center">
-                        <h2 class="font-bold text-sm h-10 overflow-hidden mb-1 tracking-tight">${movie.title}</h2>
+                        <h2 class="font-bold text-sm h-10 overflow-hidden mb-1">${movie.title}</h2>
                         <p class="text-[10px] text-gray-400 mb-4 font-bold uppercase tracking-[0.2em]">${movie.year}</p>
-                        <a href="${movie.link}" target="_blank" class="btn-nonton mt-auto block w-full py-3 rounded-xl font-black text-[10px] text-white tracking-widest uppercase shadow-lg">
+                        <a href="${movie.link}" target="_blank" class="btn-nonton mt-auto block w-full py-3 rounded-xl font-black text-[10px] text-white uppercase shadow-lg">
                             Nonton Sekarang
                         </a>
                     </div>
@@ -226,18 +168,17 @@
 
         searchInput.addEventListener('input', (e) => tampilkanFilm(e.target.value));
         
-        // JALANKAN INTRO ANIMASI SAAT WEB DIBUKA
+        // PERBAIKAN LOGIKA INTRO: Hilangkan total elemen setelah animasi
         window.addEventListener('load', () => {
             setTimeout(() => {
-                introScreen.style.opacity = '0'; // Fade out intro screen
-                mainContent.style.opacity = '1'; // Fade in main content
-                mainContent.style.animation = `fadeIn 1s ease-in forwards`; // Animasi fade in main content
-                tampilkanFilm(); // Tampilkan film setelah intro
+                introScreen.style.opacity = '0'; // Mulai memudar
                 
                 setTimeout(() => {
-                    introScreen.style.display = 'none'; // Sembunyikan intro screen setelah fade out
-                }, 1500); // Sesuaikan dengan durasi transisi opacity intro-screen
-            }, 2500); // Total durasi animasi H dan Welcome
+                    introScreen.style.display = 'none'; // Hapus total dari susunan layar
+                    mainContent.style.opacity = '1'; // Munculkan konten utama
+                    tampilkanFilm(); 
+                }, 1000); // Waktu memudar
+            }, 3000); // Durasi intro diam di layar
         });
     </script>
 </body>

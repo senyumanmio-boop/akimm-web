@@ -293,6 +293,14 @@
             tampilkanFilm(); // Akhirnya munculin filmnya
         }, 100);
     }
+     function masukKeHome() {
+    profile.style.display = 'none';
+    main.classList.remove('hidden');
+    setTimeout(() => { 
+        main.style.opacity = '1'; 
+        tampilkanFilm(); // PEMICU FILM MUNCUL
+    }, 100);
+}
 </script>
 </body>
 </html>

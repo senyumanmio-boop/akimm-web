@@ -3,29 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KimmMovie Net - Nonton Seru</title>
+    <title>KimmMovie Net - Portal Film Akimm</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background-color: #050505; color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        .movie-card { transition: all 0.3s ease; border: 1px solid #1a1a1a; }
-        .movie-card:hover { transform: scale(1.05); border-color: #e50914; box-shadow: 0 10px 30px rgba(229, 9, 20, 0.3); }
-        .btn-nonton { background-color: #e50914; transition: 0.2s; }
-        .btn-nonton:hover { background-color: #ff0a16; }
+        /* Gaya Latar Belakang Tumpukan Poster */
+        body { 
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), 
+                        url('https://assets.nflxext.com/ffe/siteui/vlv3/f841d4c2-283a-4577-a20f-7f90296ee0f3/f5620f4c-619a-4da2-95f7-463a557b447e/ID-en-20220502-popsignuptwoweeks-perspective_alpha_website_medium.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white; 
+            font-family: sans-serif; 
+            min-height: 100vh;
+        }
+
+        .movie-card { 
+            transition: all 0.3s ease; 
+            background-color: rgba(24, 24, 27, 0.9); /* Zinc-900 sedikit transparan */
+            backdrop-filter: blur(5px);
+        }
+        
+        .movie-card:hover { 
+            transform: scale(1.05); 
+            border-color: #e50914; 
+            box-shadow: 0 10px 25px rgba(229, 9, 20, 0.5);
+        }
+
+        .btn-nonton { background: linear-gradient(to right, #e50914, #b20710); }
     </style>
 </head>
 <body class="p-6">
     <div class="max-w-7xl mx-auto">
-        <header class="text-center mb-12">
-            <h1 class="text-5xl font-black tracking-tighter italic">
-                <span class="text-red-600">Kimm</span>Movie <span class="bg-red-600 px-2 rounded text-white italic">Net</span>
+        <header class="text-center mb-16 mt-10">
+            <h1 class="text-6xl font-black tracking-tighter italic shadow-2xl">
+                <span class="text-red-600">Kimm</span>Movie <span class="bg-red-600 px-3 py-1 rounded-md text-white shadow-lg">Net</span>
             </h1>
-            <p class="text-gray-500 mt-2 text-sm uppercase tracking-widest font-bold">Portal Film Akimm Terbaru</p>
+            <p class="text-gray-300 mt-4 text-xs font-bold tracking-[0.4em] uppercase drop-shadow-md">Portal Film Akimm Terbaru</p>
         </header>
 
         <div id="movie-list" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
             </div>
     </div>
-
     <script>
         // Daftar film manual yang gambarnya diambil dari link publik (poster umum)
         // Kamu bisa tambah sendiri daftar ini sesuka hati

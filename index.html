@@ -6,40 +6,63 @@
     <title>KimmMovie Net - Portal Film Akimm</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Gaya Latar Belakang Tumpukan Poster */
         body { 
+            /* BACKGROUND POSTER TUMPUK */
             background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), 
-                        url('https://i.postimg.cc/CLXSzxHk/hauhaha.jpg');
+                        url('https://assets.nflxext.com/ffe/siteui/vlv3/f841d4c2-283a-4577-a20f-7f90296ee0f3/f5620f4c-619a-4da2-95f7-463a557b447e/ID-en-20220502-popsignuptwoweeks-perspective_alpha_website_medium.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
             color: white; 
-            font-family: sans-serif; 
+            font-family: 'Inter', sans-serif;
             min-height: 100vh;
         }
 
+        /* EFEK TEMBUS PANDANG (GLASSMORPHISM) */
         .movie-card { 
-            transition: all 0.3s ease; 
-            background-color: rgba(24, 24, 27, 0.9); /* Zinc-900 sedikit transparan */
-            backdrop-filter: blur(5px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: rgba(255, 255, 255, 0.05); /* Putih tipis banget */
+            backdrop-filter: blur(15px); /* INI YANG BIKIN NGEBLUR TEMBUS PANDANG */
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0; /* Mulai dari hilang untuk animasi */
         }
         
         .movie-card:hover { 
-            transform: scale(1.05); 
+            transform: translateY(-10px) scale(1.02); 
+            background: rgba(255, 255, 255, 0.1);
             border-color: #e50914; 
-            box-shadow: 0 10px 25px rgba(229, 9, 20, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
         }
 
-        .btn-nonton { background: linear-gradient(to right, #e50914, #b20710); }
+        .btn-nonton { background: #e50914; transition: 0.3s; }
+        .btn-nonton:hover { background: #ff0f1b; box-shadow: 0 0 20px #e50914; }
+
+        /* ANIMASI FADE IN */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* GLOW PADA HEADER */
+        .neon-text { text-shadow: 0 0 15px rgba(229, 9, 20, 0.8); }
     </style>
 </head>
-<body class="p-6">
+<body class="p-6 md:p-12">
     <div class="max-w-7xl mx-auto">
-        <header class="text-center mb-16 mt-10">
-            <h1 class="text-6xl font-black tracking-tighter italic shadow-2xl">
-                <span class="text-red-600">Kimm</span>Movie <span class="bg-red-600 px-3 py-1 rounded-md text-white shadow-lg">Net</span>
+        <header class="text-center mb-16">
+            <h1 class="text-6xl font-black tracking-tighter italic neon-text">
+                <span class="text-red-600">Kimm</span>Movie <span class="bg-red-600 px-3 py-1 rounded-md text-white">Net</span>
             </h1>
-            <p class="text-gray-300 mt-4 text-xs font-bold tracking-[0.4em] uppercase drop-shadow-md">Portal Film Akimm Terbaru</p>
+            <p class="text-gray-400 mt-4 text-xs font-bold tracking-[0.4em] uppercase">Portal Film Akimm Terbaru</p>
+            
+            <div class="mt-10 max-w-lg mx-auto relative group">
+                <input type="text" id="searchInput" placeholder="Cari film kesayangan kamu..." 
+                    class="w-full bg-white/10 backdrop-blur-md border border-white/20 rounded-full py-4 px-8 text-sm focus:outline-none focus:border-red-600 focus:ring-2 focus:ring-red-600/50 transition-all placeholder:text-gray-500">
+                <div class="absolute right-5 top-4 text-gray-500 group-hover:text-red-600 transition-colors">
+                    🔍
+                </div>
+            </div>
         </header>
 
         <div id="movie-list" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
@@ -82,35 +105,40 @@
                 link: "https://123movienow.cc/spa/videoPlayPage/movies/grand-prix-of-europe-E0MyzLzbkT5?id=4945444160850510696&type=/movie/detail&detailSe=&detailEp=&lang=en" 
             }
         ];
-        // 2. PROSES MENAMPILKAN FILM
         const container = document.getElementById('movie-list');
+        const searchInput = document.getElementById('searchInput');
 
-       movies.forEach(movie => {
-            const card = document.createElement('div');
-            card.className = "movie-card bg-neutral-950 rounded-2xl overflow-hidden shadow-2xl flex flex-col h-full";
-            
-            // Link film kita simpan di variabel biar rapi
-            const finalLink = movie.link;
+        function tampilkanFilm(filter = "") {
+            container.innerHTML = "";
+            const filtered = movies.filter(m => m.title.toLowerCase().includes(filter.toLowerCase()));
 
-            card.innerHTML = `
-                <a href="${finalLink}" target="_blank" class="relative overflow-hidden group block">
-                    <img src="${movie.img}" alt="${movie.title}" class="w-full h-[320px] object-cover transition-transform duration-500 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <span class="text-white font-bold border-2 border-white px-4 py-1 rounded-full text-xs">VIEW DETAIL</span>
-                    </div>
-                </a>
+            filtered.forEach((movie, index) => {
+                const card = document.createElement('div');
+                card.className = "movie-card rounded-2xl overflow-hidden flex flex-col";
+                // EFEK MUNCUL SATU PER SATU
+                card.style.animation = `fadeIn 0.6s ease forwards ${index * 0.1}s`;
                 
-                <div class="p-4 flex flex-col flex-grow text-center">
-                    <h2 class="font-bold text-sm h-10 overflow-hidden text-ellipsis line-clamp-2 mb-1">${movie.title}</h2>
-                    <p class="text-xs text-gray-500 mb-4 font-medium">${movie.year}</p>
-                    
-                    <a href="${finalLink}" target="_blank" class="btn-nonton mt-auto block w-full py-2.5 rounded-xl font-black text-[10px] uppercase tracking-[0.2em] text-white shadow-lg">
-                        NONTON SEKARANG
+                card.innerHTML = `
+                    <a href="${movie.link}" target="_blank" class="relative group block overflow-hidden">
+                        <img src="${movie.img}" alt="${movie.title}" class="w-full h-[320px] object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="text-white font-bold border-2 border-white px-5 py-2 rounded-full text-[10px] tracking-widest uppercase">View Detail</span>
+                        </div>
                     </a>
-                </div>
-            `;
-            container.appendChild(card);
-        });
+                    <div class="p-4 flex flex-col flex-grow text-center">
+                        <h2 class="font-bold text-sm h-10 overflow-hidden mb-1 tracking-tight">${movie.title}</h2>
+                        <p class="text-[10px] text-gray-400 mb-4 font-bold uppercase tracking-[0.2em]">${movie.year}</p>
+                        <a href="${movie.link}" target="_blank" class="btn-nonton mt-auto block w-full py-3 rounded-xl font-black text-[10px] text-white tracking-widest uppercase shadow-lg">
+                            Nonton Sekarang
+                        </a>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        searchInput.addEventListener('input', (e) => tampilkanFilm(e.target.value));
+        tampilkanFilm(); // Load awal
     </script>
 </body>
 </html>

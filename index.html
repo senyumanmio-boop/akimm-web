@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KimmMovie Net - Portal Film Akimm</title>
+    <title>Selamat Datang di KimmMovie Net</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;700;900&display=swap');
+        
         body { 
-            /* BACKGROUND POSTER TUMPUK */
-            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), 
+            background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), 
                         url('https://i.postimg.cc/CLXSzxHk/hauhaha.jpg');
             background-size: cover;
             background-position: center;
@@ -16,16 +17,59 @@
             color: white; 
             font-family: 'Inter', sans-serif;
             min-height: 100vh;
+            overflow-x: hidden; /* Mencegah scroll horizontal */
         }
 
-        /* EFEK TEMBUS PANDANG (GLASSMORPHISM) */
+        /* Gaya untuk Intro Layar Penuh */
+        #intro-screen {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background-color: black;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 1;
+            transition: opacity 1.5s ease-out; /* Animasi fade out */
+        }
+
+        #intro-h {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 200px;
+            color: #e50914;
+            opacity: 0;
+            animation: HScaleIn 1s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        #intro-welcome {
+            font-size: 30px;
+            color: white;
+            opacity: 0;
+            margin-top: 20px;
+            animation: fadeIn 1s forwards 1s; /* Muncul setelah H */
+        }
+
+        /* Animasi Kustom */
+        @keyframes HScaleIn {
+            from { transform: scale(0); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Efek Glassmorphism untuk kartu film */
         .movie-card { 
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            background: rgba(255, 255, 255, 0.05); /* Putih tipis banget */
-            backdrop-filter: blur(15px); /* INI YANG BIKIN NGEBLUR TEMBUS PANDANG */
+            background: rgba(255, 255, 255, 0.05); /* Sedikit transparan */
+            backdrop-filter: blur(15px); 
             -webkit-backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            opacity: 0; /* Mulai dari hilang untuk animasi */
+            opacity: 0; /* Awalnya tersembunyi untuk animasi */
         }
         
         .movie-card:hover { 
@@ -38,18 +82,17 @@
         .btn-nonton { background: #e50914; transition: 0.3s; }
         .btn-nonton:hover { background: #ff0f1b; box-shadow: 0 0 20px #e50914; }
 
-        /* ANIMASI FADE IN */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* GLOW PADA HEADER */
+        /* Glow pada Header */
         .neon-text { text-shadow: 0 0 15px rgba(229, 9, 20, 0.8); }
     </style>
 </head>
 <body class="p-6 md:p-12">
-    <div class="max-w-7xl mx-auto">
+    <div id="intro-screen">
+        <div id="intro-h">H</div>
+        <div id="intro-welcome">Selamat Datang di KimmMovie Net</div>
+    </div>
+
+    <div id="main-content" class="max-w-7xl mx-auto opacity-0" style="transition: opacity 1s ease-in;">
         <header class="text-center mb-16">
             <h1 class="text-6xl font-black tracking-tighter italic neon-text">
                 <span class="text-red-600">Kimm</span>Movie <span class="bg-red-600 px-3 py-1 rounded-md text-white">Net</span>
@@ -107,6 +150,8 @@
         ];
         const container = document.getElementById('movie-list');
         const searchInput = document.getElementById('searchInput');
+        const introScreen = document.getElementById('intro-screen');
+        const mainContent = document.getElementById('main-content');
 
         function tampilkanFilm(filter = "") {
             container.innerHTML = "";
@@ -115,13 +160,12 @@
             filtered.forEach((movie, index) => {
                 const card = document.createElement('div');
                 card.className = "movie-card rounded-2xl overflow-hidden flex flex-col";
-                // EFEK MUNCUL SATU PER SATU
-                card.style.animation = `fadeIn 0.6s ease forwards ${index * 0.1}s`;
+                card.style.animation = `fadeIn 0.6s ease forwards ${index * 0.1 + 2.5}s`; // Delay setelah intro
                 
                 card.innerHTML = `
                     <a href="${movie.link}" target="_blank" class="relative group block overflow-hidden">
                         <img src="${movie.img}" alt="${movie.title}" class="w-full h-[320px] object-cover transition-transform duration-700 group-hover:scale-110">
-                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                             <span class="text-white font-bold border-2 border-white px-5 py-2 rounded-full text-[10px] tracking-widest uppercase">View Detail</span>
                         </div>
                     </a>
@@ -138,7 +182,20 @@
         }
 
         searchInput.addEventListener('input', (e) => tampilkanFilm(e.target.value));
-        tampilkanFilm(); // Load awal
+        
+        // JALANKAN INTRO ANIMASI SAAT WEB DIBUKA
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                introScreen.style.opacity = '0'; // Fade out intro screen
+                mainContent.style.opacity = '1'; // Fade in main content
+                mainContent.style.animation = `fadeIn 1s ease-in forwards`; // Animasi fade in main content
+                tampilkanFilm(); // Tampilkan film setelah intro
+                
+                setTimeout(() => {
+                    introScreen.style.display = 'none'; // Sembunyikan intro screen setelah fade out
+                }, 1500); // Sesuaikan dengan durasi transisi opacity intro-screen
+            }, 2500); // Total durasi animasi H dan Welcome
+        });
     </script>
 </body>
 </html>

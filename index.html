@@ -4,115 +4,82 @@
     <meta name="google-site-verification" content="xMjn7awj8cGbcykGikzrnf80PNwDQHcj52d3ccnWxj4" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KimmMovie Net - Login</title>
+    <title>KimmMovie Net</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;700;900&display=swap');
         
-        body { 
-            background: #141414;
-            color: white; 
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-        }
+        body { background-color: #0a0a0a; color: white; font-family: 'Inter', sans-serif; overflow-x: hidden; }
 
-        /* 1. INTRO STYLE */
+        /* INTRO (H) */
         #intro-screen {
-            position: fixed;
-            inset: 0;
-            background: black;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            transition: opacity 1s ease;
+            position: fixed; inset: 0; background: black;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            z-index: 9999; transition: opacity 1s ease;
         }
+        #intro-h { font-family: 'Bebas Neue', sans-serif; font-size: 150px; color: #e50914; animation: zoomIn 1.5s forwards; }
 
-        #intro-h {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 150px;
-            color: #e50914;
-            animation: zoomIn 1.5s forwards;
+        /* LOGIN & PROFILE */
+        #login-screen, #profile-screen {
+            position: fixed; inset: 0; background: #141414;
+            display: none; align-items: center; justify-content: center; z-index: 9000;
         }
-
-        /* 2. LOGIN STYLE */
         #login-screen {
-            position: fixed;
-            inset: 0;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://i.postimg.cc/CLXSzxHk/hauhaha.jpg');
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://i.postimg.cc/CLXSzxHk/hauhaha.jpg');
             background-size: cover;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 9000;
         }
 
-        /* 3. PROFILE STYLE */
-        #profile-screen {
-            position: fixed;
-            inset: 0;
-            background: #141414;
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 8000;
-        }
-
-        .profile-card:hover img { border: 3px solid white; transform: scale(1.1); }
+        /* MOVIE CARD (DESAIN ASLI KAMU) */
+        .movie-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); transition: all 0.4s ease; opacity: 0; }
+        .movie-card:hover { transform: translateY(-10px); background: rgba(255, 255, 255, 0.08); border-color: #e50914; box-shadow: 0 20px 40px rgba(229, 9, 20, 0.2); }
+        .btn-nonton { background: linear-gradient(45deg, #e50914, #ff0f1b); transition: all 0.3s ease; }
+        .btn-nonton:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(229, 9, 20, 0.4); }
 
         @keyframes zoomIn { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1.2); opacity: 1; } }
-        
-        .hidden-el { display: none !important; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .fade-in { animation: fadeIn 0.8s forwards; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
     <div id="intro-screen">
         <div id="intro-h">H</div>
-        <div id="intro-welcome" class="text-xl mt-4 opacity-0">Selamat Datang di KimmMovie Net</div>
+        <p class="mt-4 text-gray-400 tracking-widest uppercase text-xs">Selamat Datang di KimmMovie Net</p>
     </div>
 
     <div id="login-screen" class="fade-in">
-        <div class="bg-black/80 p-10 rounded-md w-full max-w-md border border-white/10">
+        <div class="bg-black/90 p-10 rounded-lg w-full max-w-md border border-white/10 shadow-2xl text-center">
             <h2 class="text-3xl font-bold mb-8">Masuk</h2>
-            <input type="text" id="userNameInput" placeholder="Masukkan nama kamu..." 
-                class="w-full bg-[#333] p-4 rounded mb-6 outline-none focus:bg-[#444] transition">
-            <button onclick="handleLogin()" class="w-full bg-[#e50914] py-3 rounded font-bold hover:bg-[#ff0f1b] transition">
+            <input type="text" id="userNameInput" placeholder="Ketik nama kamu..." 
+                class="w-full bg-[#333] p-4 rounded mb-6 outline-none focus:ring-2 focus:ring-red-600 text-white text-center">
+            <button onclick="handleLogin()" class="w-full bg-[#e50914] py-3 rounded font-bold hover:bg-[#ff0f1b] transition uppercase">
                 Masuk
             </button>
-            <p class="text-gray-500 mt-6 text-sm">Baru di KimmMovie? <span class="text-white">Daftar sekarang.</span></p>
         </div>
     </div>
 
-    <div id="profile-screen" class="fade-in">
-        <h1 class="text-5xl mb-12">Siapa yang menonton?</h1>
-        <div class="flex gap-8">
-            <div onclick="masukKeHome()" class="profile-card cursor-pointer text-center group">
-                <img src="https://i.postimg.cc/DZ3yMyM3/lalala-removebg-preview.png" class="w-32 h-32 rounded object-cover mb-4 transition border-3 border-transparent">
-                <p id="display-name" class="text-gray-400 group-hover:text-white text-xl font-bold">User</p>
-            </div>
-            <div class="profile-card cursor-pointer text-center group opacity-50">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png" class="w-32 h-32 rounded object-cover mb-4">
-                <p class="text-gray-400 text-xl font-bold">Tamu</p>
+    <div id="profile-screen" class="flex-col fade-in">
+        <h1 class="text-4xl md:text-5xl mb-12 font-medium">Siapa yang menonton?</h1>
+        <div class="flex gap-10">
+            <div onclick="masukKeHome()" class="cursor-pointer text-center group">
+                <img src="https://i.postimg.cc/DZ3yMyM3/lalala-removebg-preview.png" class="w-32 h-32 md:w-40 md:h-40 rounded object-cover mb-4 transition border-3 border-transparent group-hover:border-white group-hover:scale-105">
+                <p id="display-name" class="text-gray-400 group-hover:text-white text-xl">User</p>
             </div>
         </div>
-        <button class="mt-20 border border-gray-500 px-8 py-2 text-gray-500 hover:text-white hover:border-white transition uppercase tracking-widest">Kelola Profil</button>
     </div>
 
-    <div id="main-content" class="hidden-el p-6 md:p-12 max-w-7xl mx-auto">
+    <div id="main-content" class="hidden opacity-0 transition-opacity duration-1000 p-6 md:p-12 max-w-7xl mx-auto">
         <header class="text-center mb-16">
-            <h1 class="text-6xl font-black italic">
-                <span class="text-red-600">Kimm</span>Movie <span class="bg-red-600 px-3 py-1 rounded-md text-white">Net</span>
+            <h1 class="text-5xl md:text-7xl font-black italic mb-4">
+                <span class="text-red-600">Kimm</span>Movie <span class="bg-red-600 px-4 py-1 rounded-2xl text-white not-italic text-4xl ml-2">Net</span>
             </h1>
-            <div class="mt-10 max-w-lg mx-auto relative">
-                <input type="text" id="searchInput" placeholder="Cari film..." class="w-full bg-white/10 border border-white/20 rounded-full py-4 px-8 outline-none">
+            <div class="max-w-2xl mx-auto mt-10">
+                <input type="text" id="searchInput" placeholder="Cari film kesayangan kamu..." 
+                    class="w-full bg-white/5 border border-white/10 rounded-full py-5 px-10 outline-none focus:border-red-600/50 transition-all text-sm">
             </div>
         </header>
-        <div id="movie-list" class="grid grid-cols-2 md:grid-cols-5 gap-8"></div>
+
+        <div id="movie-list" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 md:gap-8"></div>
     </div>
 
     <script>
@@ -130,87 +97,64 @@
             { title: "Cocomelon", year: "Kids", img: "https://i.postimg.cc/1tR6jHdK/image.png", link: "https://123movienow.cc/spa/videoPlayPage/movies/cocomelon-YkTqmeNt1a9" }
         ];
 
+       const intro = document.getElementById('intro-screen');
+        const login = document.getElementById('login-screen');
+        const profile = document.getElementById('profile-screen');
+        const main = document.getElementById('main-content');
         const container = document.getElementById('movie-list');
-        const searchInput = document.getElementById('searchInput');
-        const introScreen = document.getElementById('intro-screen');
-        const loginScreen = document.getElementById('login-screen');
-        const profileScreen = document.getElementById('profile-screen');
-        const mainContent = document.getElementById('main-content');
 
-        // LOGIKA 1: INTRO KE LOGIN
+        // Logic 1: Intro -> Login
         window.addEventListener('load', () => {
             setTimeout(() => {
-                introScreen.style.opacity = '0';
-                setTimeout(() => {
-                    introScreen.style.display = 'none';
-                    loginScreen.style.display = 'flex';
+                intro.style.opacity = '0';
+                setTimeout(() => { 
+                    intro.style.display = 'none'; 
+                    login.style.display = 'flex'; 
                 }, 1000);
             }, 3000);
         });
 
-      // LOGIKA 2: LOGIN KE PROFIL (DIPERBAIKI)
+        // Logic 2: Login -> Profile
         function handleLogin() {
-            const nameInput = document.getElementById('userNameInput');
-            const name = nameInput.value;
-            
+            const name = document.getElementById('userNameInput').value;
             if (name.trim() !== "") {
                 document.getElementById('display-name').innerText = name;
-                
-                // Sembunyikan Login secara total
-                loginScreen.style.display = 'none';
-                
-                // Paksa Profil muncul di tengah
-                profileScreen.style.display = 'flex'; 
-                profileScreen.style.zIndex = '9999'; // Biar dia paling depan
-                profileScreen.classList.add('fade-in');
-            } else {
-                alert("Masukkan nama kamu dulu ya!");
-            }
+                login.style.display = 'none';
+                profile.style.display = 'flex';
+            } else { alert("Isi nama kamu dulu ya!"); }
         }
 
-        // LOGIKA 3: PROFIL KE HOME
+        // Logic 3: Profile -> Home
         function masukKeHome() {
-            // Sembunyikan layar profil
-            profileScreen.style.display = 'none';
-            
-            // Munculkan konten utama film kamu
-            mainContent.classList.remove('hidden');
-            mainContent.style.display = 'block'; 
-            mainContent.style.opacity = '1';
-            
-            // Jalankan fungsi tampilkan film punya kamu
+            profile.style.display = 'none';
+            main.classList.remove('hidden');
+            main.style.opacity = '1';
             tampilkanFilm();
         }
-        // FUNGSI TAMPILKAN FILM (Punya Kamu)
+
         function tampilkanFilm(filter = "") {
             container.innerHTML = "";
             const filtered = movies.filter(m => m.title.toLowerCase().includes(filter.toLowerCase()));
-
             filtered.forEach((movie, index) => {
                 const card = document.createElement('div');
                 card.className = "movie-card rounded-2xl overflow-hidden flex flex-col";
                 card.style.animation = `fadeIn 0.6s ease forwards ${index * 0.1}s`; 
-                
                 card.innerHTML = `
                     <a href="${movie.link}" target="_blank" class="relative group block overflow-hidden">
-                        <img src="${movie.img}" alt="${movie.title}" class="w-full h-[320px] object-cover transition-transform duration-700 group-hover:scale-110">
+                        <img src="${movie.img}" class="w-full h-[320px] object-cover transition-transform duration-700 group-hover:scale-110">
                         <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                            <span class="text-white font-bold border-2 border-white px-5 py-2 rounded-full text-[10px] tracking-widest uppercase">Nonton</span>
+                            <span class="text-white font-bold border-2 border-white px-5 py-2 rounded-full text-[10px] uppercase">Nonton</span>
                         </div>
                     </a>
                     <div class="p-4 flex flex-col flex-grow text-center">
                         <h2 class="font-bold text-sm h-10 overflow-hidden mb-1">${movie.title}</h2>
-                        <p class="text-[10px] text-gray-400 mb-4 font-bold uppercase tracking-[0.2em]">${movie.year}</p>
-                        <a href="${movie.link}" target="_blank" class="btn-nonton mt-auto block w-full py-3 rounded-xl font-black text-[10px] text-white uppercase shadow-lg">
-                            Nonton Sekarang
-                        </a>
-                    </div>
-                `;
+                        <p class="text-[10px] text-gray-400 mb-4 font-bold uppercase tracking-widest">${movie.year}</p>
+                        <a href="${movie.link}" target="_blank" class="btn-nonton mt-auto block w-full py-3 rounded-xl font-black text-[10px] text-white uppercase shadow-lg">Nonton Sekarang</a>
+                    </div>`;
                 container.appendChild(card);
             });
         }
-
-        searchInput.addEventListener('input', (e) => tampilkanFilm(e.target.value));
+        document.getElementById('searchInput').addEventListener('input', (e) => tampilkanFilm(e.target.value));
     </script>
 </body>
 </html>

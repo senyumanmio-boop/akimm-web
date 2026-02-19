@@ -22,15 +22,39 @@
     <script>
         // Daftar film manual yang gambarnya diambil dari link publik (poster umum)
         // Kamu bisa tambah sendiri daftar ini sesuka hati
+       // Bagian ini adalah daftar film kamu
         const movies = [
-            { title: "Deadpool & Wolverine", year: "2024", img: "https://image.tmdb.org/t/p/w500/8cdWjvZQUmOZpUzs9UbSLAIpccw.jpg" },
-            { title: "Inside Out 2", year: "2024", img: "https://image.tmdb.org/t/p/w500/vpnVM9B6NMmQpWeZvzLv1o9oIu9.jpg" },
-            { title: "Despicable Me 4", year: "2024", img: "https://image.tmdb.org/t/p/w500/wWba3Y7SqzZ6Yv4BeZSLr97rXOU.jpg" },
-            { title: "Kingdom of the Planet of the Apes", year: "2024", img: "https://image.tmdb.org/t/p/w500/gKkl37BQuKT6S6fKW9vX7t6TKy5.jpg" },
-            { title: "Godzilla x Kong", year: "2024", img: "https://image.tmdb.org/t/p/w500/z1p34vh7dEon9uC0SdbCLJdyVvL.jpg" }
+            { 
+                title: "Kang Mak", 
+                year: "2024", 
+                img: "https://image.tmdb.org/t/p/w600_and_h900_bestv2/vS7VpG7VshmN0Xh0L9090.jpg", // Cari poster Kang Mak di Google/TMDB
+                link: "https://moviebox.ph/detail/kang-solah-from-kang-mak-x-nenek-gayung-4WIvm8vx8Y4?id=4171287358844864104&type=/movie/detail" 
+            },
+            { 
+                title: "Deadpool & Wolverine", 
+                year: "2024", 
+                img: "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/8cdWjvZQUmOZpUzs9UbSLAIpccw.jpg", 
+                link: "ISI_LINK_MOVIEBOX_DEADPOOL_DISINI" 
+            }
         ];
 
         const container = document.getElementById('movie-list');
+
+        movies.forEach(movie => {
+            const card = document.createElement('div');
+            card.className = "movie-card bg-zinc-900 rounded-xl overflow-hidden shadow-xl";
+            card.innerHTML = `
+                <img src="${movie.img}" alt="${movie.title}" class="w-full h-72 object-cover">
+                <div class="p-4 text-center">
+                    <h2 class="font-bold text-sm h-10 overflow-hidden text-ellipsis">${movie.title}</h2>
+                    <p class="text-xs text-gray-500 mb-3">${movie.year}</p>
+                    <a href="${movie.link}" target="_blank" class="btn-nonton block w-full py-2 rounded-lg font-bold text-xs uppercase tracking-widest text-white">
+                        Nonton Sekarang
+                    </a>
+                </div>
+            `;
+            container.appendChild(card);
+        });
 
         movies.forEach(movie => {
             // Link langsung ke pencarian MovieBox
